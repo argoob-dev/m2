@@ -1,0 +1,82 @@
+
+[37;44m                              [39;49m
+[37;44m  Magento System Information  [39;49m
+[37;44m                              [39;49m
+
++------------------+------------------------------------------------------------------------------------------------------------------------------------+
+|[32m name             [39m|[32m value                                                                                                                              [39m|
++------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| Name             | Magento                                                                                                                            |
+| Version          | 2.2.6                                                                                                                              |
+| Edition          | Community                                                                                                                          |
+| Application Mode | developer                                                                                                                          |
+| Session          | files                                                                                                                              |
+| Crypt Key        | 5679c2153ec56d321e84e504cae0299e                                                                                                   |
+| Install Date     | Tue, 13 Nov 2018 12:49:18 +0000                                                                                                    |
+| Cache Backend    | Cm_Cache_Backend_File                                                                                                              |
+| Vendors          | Magento, Alrais, Codazon, Amazon, Algolia, Klarna, MageKey, Dotdigitalgroup, Onestepcheckout, Snowdog, Strategery, Temando, Vertex |
+| Attribute Count  | 206                                                                                                                                |
+| Customer Count   | 5730                                                                                                                               |
+| Category Count   | 802                                                                                                                                |
+| Product Count    | 1434                                                                                                                               |
++------------------+------------------------------------------------------------------------------------------------------------------------------------+
+
+[37;44m                   [39;49m
+[37;44m                   [39;49m
+
++-------------------------------------+------------------+
+|[32m Name                                [39m|[32m (Schema) Version [39m|
++-------------------------------------+------------------+
+| Alrais_Banner                       | 1.0.1            |
+| Alrais_Cashondelivery               | 1.0.0            |
+| Alrais_CategoryListing              | 1.3.0            |
+| Alrais_Deals                        | 2.0.0            |
+| Alrais_MainMenu                     | 1.2.0            |
+| Alrais_MainSlider                   | 1.2.1            |
+| Alrais_ProductDetails               | 1.0.0            |
+| Alrais_Quickview                    | 1.0.0            |
+| Codazon_MegaMenu                    | 1.0.0            |
+| Alrais_Combo                        | 1.0.0            |
+| Amazon_Core                         | 2.1.0            |
+| Amazon_Login                        | 2.1.0            |
+| Alrais_NewArrivals                  | 1.0.0            |
+| Alrais_ProductWidget                | 2.0.1            |
+| Algolia_AlgoliaSearch               | 1.9.0            |
+| Alrais_VehicleFilter                | 1.0.0            |
+| Amazon_Payment                      | 2.1.0            |
+| Klarna_Core                         | 4.4.4            |
+| Klarna_Ordermanagement              | 4.3.4            |
+| Codazon_Shopbybrandpro              | 1.0.0            |
+| MageKey_AdcPopup                    | 2.0.3            |
+| Alrais_BestSeller                   | 1.0.0            |
+| Klarna_Kp                           | 5.4.4            |
+| Dotdigitalgroup_Email               | 2.6.0            |
+| Onestepcheckout_Iosc                | 2.0.5            |
+| Snowdog_BreadcrumbsFix              | 0.1.0            |
+| Strategery_Infinitescroll           | 0.2.3            |
+| Temando_Shipping                    | 1.2.1            |
+| Vertex_Tax                          | 100.2.0          |
++-------------------------------------+------------------+
+
+[37;44m                       [39;49m
+[37;44m  Magento Cache Types  [39;49m
+[37;44m                       [39;49m
+
++------------------------+--------------------------------+---------+
+|[32m Name                   [39m|[32m Type                           [39m|[32m Enabled [39m|
++------------------------+--------------------------------+---------+
+| config                 | Configuration                  | 1       |
+| layout                 | Layouts                        | 1       |
+| block_html             | Blocks HTML output             | 1       |
+| collections            | Collections Data               | 1       |
+| reflection             | Reflection Data                | 1       |
+| db_ddl                 | Database DDL operations        | 1       |
+| eav                    | EAV types and attributes       | 1       |
+| customer_notification  | Customer Notification          | 1       |
+| config_integration     | Integrations Configuration     | 1       |
+| config_integration_api | Integrations API Configuration | 1       |
+| full_page              | Page Cache                     | 1       |
+| config_webservice      | Web Services Configuration     | 1       |
+| translate              | Translations                   | 1       |
++------------------------+--------------------------------+---------+
+ 

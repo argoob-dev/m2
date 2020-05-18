@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\Theme\Block\Html\Title
+ */
+$cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
+$title = '';
+if (trim($block->getPageHeading())) {
+    $title = $block->escapeHtml($block->getPageHeading());
+}
+?>
+<?php if ($title): ?>
+<h2 class="product_name_main"
+        <?php if ($block->getId()): ?> id="<?= /* @escapeNotVerified */ $block->getId() ?>" <?php endif; ?>
+        <?php if ($block->getAddBaseAttributeAria()): ?>
+            aria-labelledby="<?= /* @escapeNotVerified */ $block->getAddBaseAttributeAria() ?>"
+        <?php endif; ?>>
+        <?= /* @escapeNotVerified */ $title ?>
+</h2>
+<?= $block->getChildHtml() ?>
+<?php endif; ?>

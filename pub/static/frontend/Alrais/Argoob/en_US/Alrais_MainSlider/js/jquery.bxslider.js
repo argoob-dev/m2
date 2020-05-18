@@ -1,0 +1,1 @@
+/var/www/html/argoob/app/code/Alrais/MainSlider/view/frontend/web/js/jquery.bxslider.js

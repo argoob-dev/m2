@@ -1,0 +1,144 @@
+<?php
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+
+// @codingStandardsIgnoreFile
+
+namespace Alrais\Banner2\Block\Adminhtml\Banners2\Edit\Tab;
+
+
+use Magento\Backend\Block\Widget\Form\Generic;
+use Magento\Backend\Block\Widget\Tab\TabInterface;
+
+
+
+class Main extends Generic implements TabInterface
+{
+
+
+	const ENABLED = 1;
+	const DISABLED = 0;
+	protected $_resource;
+        protected $connection;
+
+    public function __construct(
+        \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formfactory,
+        \Magento\Framework\App\ResourceConnection $resource
+	//\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+    ) {
+        $this->_resource = $resource;
+	//$this->scopeConfig = $scopeConfig;
+	$this->scopeConfig = $context->getScopeConfig();
+        parent::__construct($context, $registry, $formfactory);
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function getTabLabel()
+    {
+        return __('Banner2 Information');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTabTitle()
+    {
+        return __('Banner2 Information');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
+     * Prepare form before rendering HTML
+     *
+     * @return $this
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
+    protected function _prepareForm()
+    {
+        $model = $this->_coreRegistry->registry('current_alrais_banner2_banners2');
+        /** @var \Magento\Framework\Data\Form $form */
+        $form = $this->_formFactory->create();
+        $form->setHtmlIdPrefix('banners2_');
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Banner2 Information')]);
+	 $fieldset->addType('image', '\Alrais\Banner2\Block\Adminhtml\Banners2\Helper\Image');
+        if ($model->getId()) {
+            $fieldset->addField('id', 'hidden', ['name' => 'id']);
+        }
+	$fieldset->addField(
+            'name',
+            'text',
+            ['name' => 'name', 'label' => __('Name'), 'title' => __('Name'), 'required' => true]
+        );
+    $fieldset->addField(
+            'side',
+            'select',
+            ['name' => 'side', 'label' => __('Side'), 'title' => __('Side'),'values' => array(0 => array('label' => 'Side-Left', 'value' => 'Side-Left'), 1 => array('label' => 'Side-Right', 'value' => 'Side-Right'),2 => array('label' => 'Middle-Top', 'value' => 'Middle-Top'),3 => array('label' => 'Middle-Bottom', 'value' => 'Middle-Bottom')), 'required' => true]
+        );
+    $fieldset->addField(
+            'text',
+            'text',
+            ['name' => 'text', 'label' => __('Text'), 'title' => __('Text'), 'required' => false]
+        );
+	$fieldset->addField(
+            'link',
+            'text',
+            ['name' => 'link', 'label' => __('Link'), 'title' => __('Link'), 'required' => false]
+        );
+	$fieldset->addField(
+            'pic',
+            'image',
+            ['name' => 'pic', 'label' => __('Pic'), 'title' => __('Pic'), 'required' => true]
+        );
+	$fieldset->addField(
+            'status',
+            'select',
+            ['name' => 'status', 'label' => __('Status'), 'title' => __('Status'), 'values' => array(0 => array('label' => 'Enable', 'value' => '1'), 1 => array('label' => 'Disable', 'value' => '0')), 'required' => true]
+	);
+ 	$form->setValues($model->getData());
+        $this->setForm($form);
+        return parent::_prepareForm();
+    }
+
+	/*protected function getConnection()
+    {
+        if (!$this->connection) {
+            $this->connection = $this->_resource->getConnection('core_write');
+        }
+        return $this->connection;
+    }
+
+
+	public function getDirectQuery()
+    {
+	$storeId = $this->getCurrentStoreName();
+        $eav_attribute_option=$this->_resource->getTableName('eav_attribute_option'); 
+	$eav_attribute_option_value = $this->_resource->getTableName('eav_attribute_option_value');
+        $name = $this->getConnection()->fetchAll('SELECT '.$eav_attribute_option.'.option_id as Id,'.$eav_attribute_option_value.'.value as name  FROM '.$eav_attribute_option_value.' JOIN '.$eav_attribute_option.' ON '.$eav_attribute_option_value.'.option_id = '.$eav_attribute_option.'.option_id WHERE '.$eav_attribute_option.'.attribute_id = 80 AND '.$eav_attribute_option_value.'.store_id ='.$storeId);
+        return $name;
+    }
+	public function getCurrentStoreName()
+    {
+        return $this->_storeManager->getStore()->getId();
+    }*/
+
+}

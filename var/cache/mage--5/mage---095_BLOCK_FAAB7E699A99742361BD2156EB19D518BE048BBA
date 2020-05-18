@@ -1,0 +1,57 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1589734006;s:6:"expire";i:1589820406;s:4:"tags";s:40:"095_BRAND_SLIDER,095_BLOCK_HTML,095_MAGE";}
+
+<section class="brandarea">
+    <div class="container">
+        <div class="brands flex">
+            <div class="brand_head">
+            <div>
+                <h2>POPULAR BRANDS</h2>
+                <a href="http://192.168.202.130/argoob/en/brands/" class="btn">View All</a>
+                </div>
+            </div>
+            <ul class="brand_logos">
+                                                        <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/afe" title="AFE">
+                            <img class="brand-img owl-lazy zoom-eff" alt="AFE" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/16.jpg" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/arb" title="ARB">
+                            <img class="brand-img owl-lazy zoom-eff" alt="ARB" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/18.jpg" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/bedrug" title="Bedrug">
+                            <img class="brand-img owl-lazy zoom-eff" alt="Bedrug" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/Bedrug.png" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/bilstein" title="Bilstein">
+                            <img class="brand-img owl-lazy zoom-eff" alt="Bilstein" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/21.jpg" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/borla" title="Borla">
+                            <img class="brand-img owl-lazy zoom-eff" alt="Borla" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/borla.jpg" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/daystar" title="Daystar">
+                            <img class="brand-img owl-lazy zoom-eff" alt="Daystar" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/daystar.jpg" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/diablosport" title="Diablosport">
+                            <img class="brand-img owl-lazy zoom-eff" alt="Diablosport" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/27.jpg" />
+                        </a>
+                    </li>
+                                                                                                <li>
+                        <a class="brand-link abs-img" href="http://192.168.202.130/argoob/en/brand/drake" title="Drake">
+                            <img class="brand-img owl-lazy zoom-eff" alt="Drake" src="http://192.168.202.130/argoob/pub/media/codazon_cache/brand/120x120/wysiwyg/DRAKE.png" />
+                        </a>
+                    </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    
+    <body>
+        <referenceContainer name="left">
+            <block class="Alrais\MainMenu\Block\Adminhtml\Navigator\Edit\Tabs" name="alrais_mainmenu_navigator_edit_tabs">
+                <block class="Alrais\MainMenu\Block\Adminhtml\Navigator\Edit\Tab\Main" name="alrais_mainmenu_navigator_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">alrais_mainmenu_navigator_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Alrais\MainMenu\Block\Adminhtml\Navigator\Edit" name="navigator_navigator_edit"/>
+        </referenceContainer>
+    </body>
+</page>

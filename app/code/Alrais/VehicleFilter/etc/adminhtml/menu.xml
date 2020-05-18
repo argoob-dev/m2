@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Backend/etc/menu.xsd">
+    <menu>
+        <update id="Alrais_Extensions::alraisextensions" title="Alrais Extensions" module="Magento_Backend" resource="Alrais_Extensions::alraisextensions" sortOrder="15"/>
+        <add id="Alrais_VehicleFilter::main" title="Vehicle Filter" module="Alrais_VehicleFilter" sortOrder="70" resource="Alrais_VehicleFilter::main" parent="Alrais_Extensions::alraisextensions"/>
+        <add id="Alrais_VehicleFilter::make" title="Manage Make" module="Alrais_VehicleFilter" sortOrder="10" parent="Alrais_VehicleFilter::main" action="alrais_vehiclefilter/make/" resource="Alrais_VehicleFilter::make"/>
+        <add id="Alrais_VehicleFilter::model" title="Manage Model" module="Alrais_VehicleFilter" sortOrder="20" parent="Alrais_VehicleFilter::main" action="alrais_vehiclefilter/model/" resource="Alrais_VehicleFilter::model"/>
+        <add id="Alrais_VehicleFilter::year" title="Manage Year" module="Alrais_VehicleFilter" sortOrder="30" parent="Alrais_VehicleFilter::main" action="alrais_vehiclefilter/year/" resource="Alrais_VehicleFilter::year"/>
+        <add id="Alrais_VehicleFilter::vehicle" title="Manage Vehicle" module="Alrais_VehicleFilter" sortOrder="40" parent="Alrais_VehicleFilter::main" action="alrais_vehiclefilter/vehicle/" resource="Alrais_VehicleFilter::vehicle"/>
+    </menu>
+</config>

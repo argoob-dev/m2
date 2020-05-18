@@ -1,0 +1,42 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation\FilterRenderer
+ */
+?>
+
+    <?php foreach ($filterItems as $filterItem): ?>
+            <?php if ($filterItem->getCount() > 0): ?>
+            <label class="chackobxcontainer">
+                <a href="<?= $block->escapeUrl($filterItem->getUrl()) ?>">
+                    <?= /* @escapeNotVerified */ $filterItem->getLabel() ?>
+                    <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                        <!-- (<span class="count"><?= /* @escapeNotVerified */ $filterItem->getCount() ?></span>) -->
+                    <?php endif; ?>
+                </a>  
+                <input type="checkbox"  onclick="document.location.href = '<?= $block->escapeUrl($filterItem->getUrl()) ?>'">
+                <span class="checkmark"></span>
+            </label>
+                
+            <?php else:?>
+                <label class="chackobxcontainer">
+                    <?= /* @escapeNotVerified */ $filterItem->getLabel() ?>
+                    <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                       <!-- ( <span class="count"><?= /* @escapeNotVerified */ $filterItem->getCount() ?><span class="filter-count-label"> -->
+                            <!-- </span>) -->
+                    <?php endif; ?> 
+                    <input type="checkbox" >
+                    <span class="checkmark"></span>
+                </label>
+            <?php endif; ?>
+    <?php endforeach ?>

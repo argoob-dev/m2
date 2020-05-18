@@ -1,0 +1,171 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$helper = $this->helper('Alrais\VehicleFilter\Helper\Data');
+$selectedVehicle = json_decode($helper->getVehicle());
+$productId = $this->getCurrentProduct()->getId(); 
+$makes = $this->getMakes($productId);
+?>
+<div class="fitment_detail" data-role="pannel" data-mage-init='{"loader": {}}'>
+    <h2><i class="fa fa-car"></i><?= __('VEHICLE FITMENT') ?></h2>
+    <?php if($this->getCurrentProduct()->getUniversalProduct()):?>
+        <p class="universalProd">
+            <i class="fa fa-universal-access "></i>
+            <span class="uni-prdct"><?= __("Universal Product") ?></span>
+        </p>
+    <?php else : ?>
+        <?php if($selectedVehicle): ?>
+            <div class="vehicleConditions"> 
+                <?php if($helper->isVehicleFitsProduct($selectedVehicle->vehicle_id, $productId)):?>
+                    <p class="success">
+                        <i class="fa fa-check-circle"></i>
+                        <?= __('This product fits')?>
+                        <span>
+                            <?= $selectedVehicle->year." ". __($selectedVehicle->make)." ". __($selectedVehicle->model) ?>
+                        </span>
+                    </p>
+                    <a href="#vehiclefits-tab" class="comp_vehicle">(<?= __('View all compatible Vehicles')?>)</a>
+                <?php else : ?>
+                    <p class="fail">
+                        <i class="fa fa-warning"></i>
+                        <?= __('Sorry! This product doesn‘t fit')?>
+                        <span>
+                            <?= $selectedVehicle->year." ". __($selectedVehicle->make)." ". __($selectedVehicle->model) ?>
+                        </span>
+                    </p>
+                    <a href="#vehiclefits-tab" class="comp_vehicle">(<?= __('View all compatible Vehicles')?>)</a>
+                    <span class="compi"><?= __('Select A Compatible Vehicle') ?></span>
+                    <form action="<?= $this->getUrl('vehicle_fits/vehicle/add'); ?>" method="POST" id="product-fit-form" >
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select id="product-vehicle-fits-make" name="make_id" class="product-make-select">
+                                    <option value="0">- <?php echo __('Select Make') ?> -</option>
+                                    <?php 
+                                        $modelList = [];
+                                        $yearList = [];
+                                    ?>
+                                    <?php foreach ($makes as $make): ?>
+                                        <option value="<?= $make->getMakeId() ?>"><?php echo __($make->getMake()) ?></option>
+                                        <?php $models = $this->getModels($make->getMakeId(), $productId) ?>
+                                        <?php foreach ($models as $model): ?>
+                                            <?php array_push($modelList, $model) ?>
+                                            <?php $years = $this->getYears($make->getMakeId(), $model->getModelId(), $productId) ?>
+                                            <?php foreach ($years as $year): ?>
+                                                <?php array_push($yearList, $year) ?>
+                                            <?php endforeach ?>
+                                        <?php endforeach ?>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="product-vehicle-fits-model" name="model_id" class="product-model-select" disabled>
+                                    <option value="0">- <?php echo __('Select Model') ?> -</option>
+                                    <?php foreach ($modelList as $model): ?>
+                                        <option value="<?= $model->getModelId() ?>" data-make="<?= $model->getMakeId() ?>"><?php echo __($model->getModel()) ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">	
+                                <select id="product-vehicle-fits-year" name="year_id" class="product-year-select" disabled>
+                                    <option value="0">- <?php echo __('Select Year') ?> -</option>
+                                    <?php foreach ($yearList as $year): ?>
+                                        <option value="<?= $year->getYearId() ?>" data-make="<?= $year->getMakeId() ?>" data-model="<?= $year->getModelId() ?>"><?php echo __($year->getYear()) ?></option>
+                                    <?php endforeach ?>   
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                <?php endif ?>
+                
+            </div>
+        <?php else : ?>
+            <span class="compi"><?= __('Select A Compatible Vehicle') ?></span>
+            <form action="<?= $this->getUrl('vehicle_fits/vehicle/add'); ?>" method="POST" id="product-fit-form" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <select id="product-vehicle-fits-make" name="make_id" class="product-make-select">
+                            <option value="0">- <?php echo __('Select Make') ?> -</option>
+                            <?php 
+                                $modelList = [];
+                                $yearList = [];
+                            ?>
+                            <?php foreach ($makes as $make): ?>
+                                <option value="<?= $make->getMakeId() ?>"><?php echo __($make->getMake()) ?></option>
+                                <?php $models = $this->getModels($make->getMakeId(), $productId) ?>
+                                <?php foreach ($models as $model): ?>
+                                    <?php array_push($modelList, $model) ?>
+                                    <?php $years = $this->getYears($make->getMakeId(), $model->getModelId(), $productId) ?>
+                                    <?php foreach ($years as $year): ?>
+                                        <?php array_push($yearList, $year) ?>
+                                    <?php endforeach ?>
+                                <?php endforeach ?>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="product-vehicle-fits-model" name="model_id" class="product-model-select" disabled>
+                            <option value="0">- <?php echo __('Select Model') ?> -</option>
+                            <?php foreach ($modelList as $model): ?>
+                                <option value="<?= $model->getModelId() ?>" data-make="<?= $model->getMakeId() ?>"><?php echo __($model->getModel()) ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="col-md-4">	
+                        <select id="product-vehicle-fits-year" name="year_id" class="product-year-select" disabled>
+                            <option value="0">- <?php echo __('Select Year') ?> -</option>
+                            <?php foreach ($yearList as $year): ?>
+                                <option value="<?= $year->getYearId() ?>" data-make="<?= $year->getMakeId() ?>" data-model="<?= $year->getModelId() ?>"><?php echo __($year->getYear()) ?></option>
+                            <?php endforeach ?>   
+                        </select>
+                    </div>
+                </div>
+            </form>
+        <?php endif ?>
+    <?php endif ?>
+</div>
+<script>
+require(["jquery"], function ($) {
+    $("#product-vehicle-fits-make").on("change", function () {
+        var makeId = $(this).val();
+        $("#product-vehicle-fits-model option[data-make="+makeId+"]").show();
+        $("#product-vehicle-fits-model option:not([data-make="+makeId+"])").hide();
+        $("#product-vehicle-fits-model option:first-child").show();
+        $("#product-vehicle-fits-model").attr("disabled",false);
+        $("#product-vehicle-fits-year").attr("disabled",true);
+        $("#product-vehicle-fits-model").focus();
+    });
+    $("#product-vehicle-fits-model").on("change", function () {
+        var makeId = $("#product-vehicle-fits-make").val();
+        var modelId = $(this).val();
+        $("#product-vehicle-fits-year option[data-make="+makeId+"][data-model="+modelId+"]").show();
+        $("#product-vehicle-fits-year option:not([data-make="+makeId+"][data-model="+modelId+"])").hide();
+        $("#product-vehicle-fits-year option:first-child").show();
+        $("#product-vehicle-fits-year").attr("disabled", false);
+        $("#product-vehicle-fits-year").focus();
+    });
+    $("#product-vehicle-fits-year").on("change", function () {
+        $('.fitment_detail').trigger('processStart');
+        $.ajax({
+            type: 'post',
+            url: '<?= $this->getUrl('vehicle_fits/vehicle/add'); ?>',
+            data: $("#product-fit-form").serialize(),
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+    $(".comp_vehicle").on("click", function(){
+        var acnchor;
+        event.preventDefault();
+        acnchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
+        $('.product.data.items [data-role="content"]').each(function (index) { 
+            if (this.id == 'vehiclefits-tab') { 
+                $('.product.data.items').tabs('activate', index);
+                $('html, body').animate({
+                    scrollTop: $('#' + acnchor).offset().top - 50
+                }, 1200);
+            }
+        });
+    });
+});
+</script>

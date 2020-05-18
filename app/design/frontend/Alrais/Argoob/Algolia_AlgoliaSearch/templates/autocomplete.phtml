@@ -1,0 +1,48 @@
+<?php
+/** @var \Algolia\AlgoliaSearch\Block\Algolia $block */
+
+$config = $block->getConfigHelper();
+
+$catalogSearchHelper = $block->getCatalogSearchHelper();
+
+$placeholder = __('Search for products, categories');
+
+/** Render form with autocomplete input **/
+if ($config->isDefaultSelector()) : ?>
+    <div class="mobile_search"> <i class="fa fa-search btn"></i>
+<div class="main_search">
+    <form id="search_mini_form"
+            action="<?php echo $block->escapeHtml($catalogSearchHelper->getResultUrl()); ?>"
+            method="get">
+        <div id="algolia-searchbox">
+            <input id="search"
+                    type="text"
+                    name="<?php echo $block->escapeHtml($catalogSearchHelper->getQueryParamName()); ?>"
+                    class="input-text algolia-search-input"
+                    autocomplete="off"
+                    spellcheck="false"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    placeholder="<?php echo $block->escapeHtml($placeholder); ?>" />
+
+            <span class="clear-cross clear-query-autocomplete"></span>
+            <span id="algolia-glass" class="magnifying-glass search-btn" width="24" height="24"><i class="fa fa-search"></i><span><?=__('Search')?></span></span>
+        </div>
+    </form>
+</div>
+</div>
+<?php endif; ?>
+
+<script>
+    require(['jquery'], function ($) {
+
+        $(document).ready(function () {
+            $(".fa.fa-search.btn").click(function(){
+             $(".main_search").toggle();
+            });
+        });
+  
+        
+    });
+    
+</script>

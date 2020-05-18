@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="checkout_submit_all_after">
+		<observer name="etisalatpay_save_order_after_submit" instance="Magento\Etisalatpay\Observer\SaveOrderAfterSubmitObserver" />
+	</event>
+	<event name="checkout_onepage_controller_success_action">
+        <observer name="checkout_onepage_controller_success_action_sendmail" instance="Magento\Etisalatpay\Observer\SendMailOnOrderSuccess" />
+    </event>
+</config>

@@ -1,0 +1,36 @@
+<?php 
+$helper = $this->helper('Alrais\VehicleFilter\Helper\Data');
+$selectedVehicle = json_decode($helper->getVehicle());
+$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+$checked = "checked='checked'";
+
+if(isset($_GET['show_all'])){
+    $checked = "";
+    $url = $urlInterface->getCurrentUrl().'?show_all=true';
+    $url = str_replace("?show_all=true","",$url);
+    $url = str_replace("&show_all=true","",$url);
+}else{
+    if (strstr($urlInterface->getCurrentUrl(), '?')) {
+        $url = $urlInterface->getCurrentUrl().'&show_all=true';
+    }else{
+        $url = $urlInterface->getCurrentUrl().'?show_all=true';
+    }
+}
+
+?>
+<?php if($selectedVehicle){ ?>
+
+<div class="noFitProducts showOptions clearfix">
+    <div class="squaredFour">
+      <input id="squaredFour" name="check" type="checkbox" <?= $checked ?> onclick="document.location.href = '<?= $url ?>'"/>
+      <label for="squaredFour"></label>
+    </div>
+    <label for="chkCars" name="chkCars" class="css-label">
+        <p><span><strong><?= __('Show only products that fit')." ". $selectedVehicle->year." ". __($selectedVehicle->make)." ". __($selectedVehicle->model) ?></strong></span></p>
+    </label>
+    <button type="button" class="btn btn-lg btn-success catHelp" data-original-title="" title=""><i class="fa fa-question"></i>
+    <span class="animated fadeInUp _popToltip"><?= __('Uncheck to show all products in this category')?>.</span>
+    </button>
+    
+</div>
+<?php } ?>

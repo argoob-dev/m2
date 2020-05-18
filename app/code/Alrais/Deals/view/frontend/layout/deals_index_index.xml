@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 Alrais, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="infinitescroll"/>
+    <body>
+		<referenceContainer name="sidebar.main">
+		</referenceContainer>
+        <referenceContainer name="content">
+            <block class="Alrais\VehicleFilter\Block\VehicleFits" name="category_fits" template="categoryfits.phtml" cacheable="false" before="-"/>
+            <block class="Alrais\Deals\Block\Deals\View" name="category.products" template="Alrais_Deals::deals/products.phtml">
+				<block class="Alrais\Deals\Block\Product\Deals\ListProduct" name="category.products.list"  as="product_list" template="Magento_Catalog::product/list.phtml">
+					<container name="category.product.list.additional" as="additional" />
+                    <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" as="default"/>
+                    </block>
+                    <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="category.product.addto" as="addto">
+                        <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                               name="category.product.addto.compare" as="compare"
+                               template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                    </block>
+					<block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+                        <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+                    </block>
+                    <action method="setToolbarBlockName">
+                        <argument name="name" xsi:type="string">product_list_toolbar</argument>
+                    </action>
+				</block>
+			</block>
+			
+			<!-- Wishlist -->
+			<block class="Magento\Cookie\Block\RequireCookie" name="require-cookie" template="Magento_Cookie::require_cookie.phtml">
+                <arguments>
+                    <argument name="triggers" xsi:type="array">
+                        <item name="addToWishlistLink" xsi:type="string">.action.towishlist</item>
+                    </argument>
+                </arguments>
+            </block>
+            <referenceBlock name="category.product.addto">
+                <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                       name="category.product.addto.wishlist" as="wishlist" before="compare"
+                       template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"/>
+            </referenceBlock>
+            <referenceContainer name="category.product.list.additional">
+                <block class="Magento\Wishlist\Block\AddToWishlist" template="Magento_Wishlist::addto.phtml" />
+            </referenceContainer>
+			<!-- End Wishlist -->
+			
+			<!-- Configurable Swatch -->
+			<referenceBlock name="category.product.type.details.renderers">
+            	<block class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable" as="configurable" template="Magento_Swatches::product/listing/renderer.phtml" />
+        	</referenceBlock>
+			<!-- End Configurable Swatch -->
+			
+        </referenceContainer>
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="id" xsi:type="string">page-title-heading</argument>
+                <argument name="add_base_attribute_aria" xsi:type="string">page-title-heading toolbar-amount</argument>
+            </arguments>
+        </referenceBlock>
+	</body>
+</page>

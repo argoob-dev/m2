@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+$categories = $block->getCategories();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$objectManager->get(\Psr\Log\LoggerInterface::class)->info('category listing debug start -- '. date("M,d,Y h:i:s A"));
+?>
+<section class="category_list">
+    <div class="container">
+        <div class="flex_block">
+            <div class="thirty cat_bg headstyle">
+                <div>
+                    <h2><?= __('SHOP BY CATEGORY')?></h2>
+                </div>
+            </div>
+            <div class="seventy">
+                <ul class="cat_list">
+                    <?php  foreach ($categories as $category): ?>
+                        <?php 
+                           $item = $objectManager->create('\Magento\Catalog\Model\Category')
+                              ->load($category->getCategoryId());
+                        ?>
+                         <li>
+                            <a href="<?= $item->getUrl() ?>">
+                                <img src="<?= $this->getMediaDirectoryUrl() . $category->getBannerImage() ?>">
+                                <span><?= $item->getName() ?></span>
+                            </a>
+                        </li> 
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<?php //$objectManager->get(\Psr\Log\LoggerInterface::class)->info('category listing debug end -- '. date("M,d,Y h:i:s A"));?>

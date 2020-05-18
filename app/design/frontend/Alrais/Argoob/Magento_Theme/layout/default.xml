@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <move element="logo"  destination="top.strip.logo.container"/>
+        <move element="store.settings.language" destination="top.strip.info.container.language" before="-"/>
+        <move element="top.search" destination="middle.strip.search.container"/>
+        <move element="minicart" destination="middle.strip.minicart.container"/>
+        <move element="navigation-sections" destination="middle.strip.minicart.container"/>
+        <move element="page.messages" destination="header.container" after="bottom.strip"/>
+        <move element="form.subscribe" destination="newsletter.block.container.row"  before="-"/>
+        <referenceBlock name="store_language" remove="true"/>
+        <referenceBlock name="store.links" remove="true"/>
+        <referenceBlock name="header.panel.wrapper" remove="true"/>
+        <referenceBlock name="navigation.sections" remove="true"/>
+        <referenceBlock name="footer" remove="true"/>
+        <referenceContainer name="header.container">
+            <container name="top.strip" htmlClass="topstrip" htmlTag="div" before="-">
+                <container name="top.strip.container" htmlClass="container" htmlTag="div">
+                    <container name="top.strip.container.row" htmlClass="row" htmlTag="div">
+                        <container name="top.strip.logo.container" htmlClass="col-md-2" htmlTag="div">
+                            
+                        </container>
+                        <container name="top.strip.info.container" htmlClass="col-md-8" htmlTag="div">
+                            <container name="top.strip.info.container.centeralign" htmlClass="ctal" htmlTag="div">
+                                <block class="Magento\Cms\Block\Block" name="top.contact.block">
+                                    <arguments>
+                                        <argument name="block_id" xsi:type="string">top.contact.block</argument>
+                                    </arguments>
+                                </block>
+                            </container>
+                        </container>
+                        <container name="top.strip.info.container.language" htmlClass="col-md-2" htmlTag="div">
+                        </container>
+                    </container>
+                </container>
+            </container>
+            <container name="middle.strip" htmlClass="middlestrip" htmlTag="div" after="top.strip">
+                <container name="middle.strip.container" htmlClass="container" htmlTag="div">
+                    <container name="middle.strip.container.row" htmlClass="row" htmlTag="div">
+                        <container name="middle.strip.vehicle.container" htmlClass="col-md-3" htmlTag="div" before="-">
+                            
+                        </container>
+                        <container name="middle.strip.search.container" htmlClass="col-md-6" htmlTag="div" after="middle.strip.vehicle.container">
+                            
+                        </container>
+                        <container name="middle.strip.minicart.container" htmlClass="col-md-3" htmlTag="div" after="middle.strip.search.container">
+                            <block class="Magento\Customer\Block\Account\AuthorizationLink" template="account/link/authorization.phtml" name="customer.link" before="-" />
+                            <block class="Magento\Wishlist\Block\Link" template="link.phtml" name="theme.wishlist" after="customer.link" />
+                        </container>
+                    </container>
+                </container>
+            </container>
+            <container name="bottom.strip" htmlClass="bottomstrip" htmlTag="div" after="middle.strip">
+                <container name="bottom.strip.container" htmlClass="container" htmlTag="div">
+                    <block class="Codazon\MegaMenu\Block\Widget\Megamenu" name="megamenu" template="Codazon_MegaMenu::default-menu.phtml" />
+                </container>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="mobile.menu.container">
+
+        </referenceContainer>
+        <referenceContainer name="footer-container">
+            <block class="Magento\Cms\Block\Block" name="bottom.promo" before="newsletter.block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">promo</argument>
+                </arguments>
+            </block>
+            <block name="quickview.container" template="Alrais_Quickview::quickview.phtml"/>
+            <container name="newsletter.block" htmlTag="div" htmlClass="newsletters" after="bottom.promo">
+                <container name="newsletter.block.container" htmlTag="div" htmlClass="container" before="-">
+                    <container name="newsletter.block.container.row" htmlTag="div" htmlClass="row" before="-">
+                        <block class="Magento\Cms\Block\Block" name="socialmedia.block">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">socialmedia.block</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                </container>
+            </container>
+            <block class="Magento\Theme\Block\Html\Footer" name="footer.contentarea" template="html/footer_contents.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

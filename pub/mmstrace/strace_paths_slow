@@ -1,0 +1,5 @@
+     0.008811 open("/home/dev2/public_html/vendor/magento/module-sales/view/frontend/requirejs-config.js", O_RDONLY) = 9
+     0.012897 open("/home/dev2/public_html/app/code/Alrais/Banner/view/frontend/templates/banner.phtml", O_RDONLY) = 9
+     0.020259 open("/home/dev2/public_html/vendor/magento/module-catalog/Model/ResourceModel/Category/Collection.php", O_RDONLY) = 8
+     0.136867 open("/home/dev2/public_html/vendor/magento/framework/View/Element/Message/MessageConfigurationsPool.php", O_RDONLY) = 6
+     0.849539 open("/home/dev2/public_html/vendor/magento/module-review/Model/Review.php", O_RDONLY) = 8

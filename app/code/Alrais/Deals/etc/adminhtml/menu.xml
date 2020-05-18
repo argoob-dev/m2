@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Alrais_Deals::productsgrid" title="Deals" module="Alrais_Deals" sortOrder="100" parent="Alrais_Extensions::alraisextensions" resource="Alrais_Deals::productsgrid" action="deal/deal"/>
+    </menu>
+</config>

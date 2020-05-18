@@ -1,0 +1,173 @@
+<div class="checkout-success">
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $orderSuccess = $objectManager->create('Magento\Sales\Model\Order');
+    $priceHelper   = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+    $orderSum = $orderSuccess->loadByIncrementId($block->getOrderId());
+?>
+<?php 
+    $shipping_address_data = $orderSum->getShippingAddress()->getData();
+    $billing_address_data = $orderSum->getBillingAddress()->getData();
+
+    $countryShippingModel = $objectManager->create('Magento\Directory\Model\Country')->loadByCode($shipping_address_data['country_id']);
+
+    $countryBillingModel = $objectManager->create('Magento\Directory\Model\Country')->loadByCode($billing_address_data['country_id']);
+    
+?>
+<?php if ($block->getOrderId()):?>
+
+<div class="social_success">          
+    <div class="half">
+        <div class="thanks_yo"> <?= __('Thank you')?>  <span><?php echo $orderSum->getBillingAddress()->getFirstName(); ?></span></div>
+        <div class="boxbrdr">
+            
+            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722458.0068931733!2d51.694728330476536!3d24.33907550366635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e48dfb1ab12bd%3A0x33d32f56c0080aa7!2sUnited+Arab+Emirates!5e0!3m2!1sen!2sin!4v1470472911050" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+            <div class="bt_gio">
+                <span class="confir_s"> <span><?= __('Your order')?> #</span> <span>
+                    <?= __('%1', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?>
+                </span><?= __('confirmed')?></span>
+            </div>
+        </div>
+        <div class="boxbrdr">
+            <h2 class="box_h2"><?= __('Delivery time')?></h2>
+            <span class="cmn_su_tx">
+                <?= __('3 business day');?>
+            </span>
+        </div>
+        
+
+
+        <div class="boxbrdr">
+            <h2 class="box_h2"><?= __('Customer information')?></h2>
+            <div class="half">
+            <h2 class="sub_hd_all"><?= __('Name')?>: <?php echo $orderSum->getBillingAddress()->getFirstName(); ?></h2>
+            </div>
+
+            <div class="half">
+            <h2 class="sub_hd_all"><?= __('Email')?>: <?php echo $orderSuccess->getCustomerEmail(); ?></h2> </div>
+
+
+            <div class="half">
+            <h2 class="sub_hd_all"><?= __('Shipping address')?></h2>
+                 <address>
+                    <span class="line_adrs"><?php echo $shipping_address_data['street']; ?></span> 
+                    <?php echo $shipping_address_data['city']; ?> </span>
+                    <span class="line_adrs"><?php echo $shipping_address_data['region']; ?> 
+                    <span class="line_adrs"><?php echo $countryShippingModel->getName(); ?> <?php echo $shipping_address_data['postcode']; ?></span>
+                </address>
+                <h2 class="sub_hd_all"><?= __('Shipping method')?></h2>
+            <span class="line_adrs"><?php echo $orderSum->getShippingDescription(); ?></span> 
+            
+            </div>
+
+            <div class="half">
+            <h2 class="sub_hd_all"><?= __('Billing address')?></h2>
+                <address>
+                    <span class="line_adrs"><?php echo $billing_address_data['street']; ?></span> 
+                    <span class="line_adrs"><?php echo $billing_address_data['region']; ?> <?php echo $billing_address_data['city']; ?> </span>
+                    <span class="line_adrs"><?php echo $countryBillingModel->getName(); ?> <?php echo $billing_address_data['postcode']; ?></span>
+                </address>
+                
+                <?php
+                    $paymentcode = $orderSum->getPayment()->getMethodInstance()->getCode();
+                ?> 
+                
+                <h2 class="sub_hd_all"><?= __('Payment method')?></h2>
+                    <?php 
+                        if($paymentcode == "cashondelivery"){ ?>
+                            <span class="line_adrs"><?= __('Cash on  Delivery (COD)') ?></span> 
+                        <?php 
+                            $objectManager->create('Magento\Sales\Model\OrderNotifier')->notify($orderSum);
+                        ?> 
+                        <?php } else { ?>
+                            <span class="line_adrs"><?= __('Credit / Debit Card / Cheque or money order')?></span>
+                    <?php } ?> 
+            </div>
+        </div>
+        
+    </div>
+    <div class="half">
+    <div class="boxbrdr">
+    <h2 class="box_h2"><?= __('Order Summary')?></h2>
+       <div class="cart_summery">
+            <table cellspacing="0" cellpadding="0" class="table_crt">
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th colspan="2"><?= __('Product Name')?></th>
+                    <th><?= __('Price')?></th>
+                    <th style="text-align: center;"><?= __('Qty')?></th>
+                    <th style="text-align: right; padding-right: 0px;"><?= __('Subtotal')?></th>
+                </tr>
+                <?php
+                    $orderItems = $orderSum->getAllVisibleItems();
+                    
+                    foreach ($orderItems as $_item){
+                    $_product = $objectManager->create('Magento\Catalog\Model\Product')->load($_item->getProductId());
+                    $_helperImage = $objectManager->create('Magento\Catalog\Helper\Image');
+
+                    $price = $priceHelper->currency($_item->getBasePrice(), true, false);
+                    $photo = $_helperImage->init($_product, 'category_page_grid')->resize(50, 50)->getUrl();
+                    $subItemTotal = $priceHelper->currency($_item->getQtyOrdered()*$_item->getBasePrice(), true, false);
+                    $optionArray = $_item->getProductOptions()
+                ?>
+                <tr>
+                    <td width="15%"><div class="crt_img"><img src="<?php echo $photo; ?>"></div></td> 
+
+                    <td width="40%">
+                        <?php echo $_item->getName() ?> <br>
+                        <?php
+                            if($_product->getTypeId() == 'configurable'){
+                            $optionArray = $_item->getProductOptions();
+                            foreach($optionArray['attributes_info'] as $option){ ?>
+                                <span style="color: rgb(84, 84, 84); font-size: 13px;">     <?php echo $option['value']; ?>
+                                </span>
+                           <?php } ?>
+                           <?php } ?>
+
+                    </td>
+                    <td width="15%"><?php echo $price; ?></td>
+                    <td width="15%" align="center"><?php echo round($_item->getQtyOrdered(), 0) ?></td>
+                    <td width="15%" align="right"><?php echo $subItemTotal; ?></td>
+                    
+                </tr>
+                <?php } ?>
+                <?php 
+                    $subTotal = $priceHelper->currency($orderSum->getBaseSubTotal(), true, false);
+                    $shippingAmount = $priceHelper->currency($orderSum->getBaseShippingAmount(), true, false);
+                    $grandTotal = $priceHelper->currency($orderSum->getBaseGrandtotal(), true, false);
+                    $discountAmount = $priceHelper->currency($orderSum->getBaseDiscountAmount(), true, false);
+                ?>
+                <tr>
+                    <td colspan="5">
+                        <div class="full_box"><span class="snb_ss"><?= __('Subtotal')?></span> <span class="snb_bb"><?php echo $subTotal; ?></span></div>
+                        <div class="full_box"><span class="snb_ss"><?= __('Shipping')?></span> <span class="snb_bb"><?php echo $shippingAmount; ?></span></div>
+
+                        <?php if ($orderSum->getDiscountAmount() != 0) { ?>
+                            <div class="full_box"><span class="snb_ss"><?= __('Discount')?></span> <span class="snb_bb"><?php echo $discountAmount; ?></span></div>
+                        <?php } ?>
+                        
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div class="full_box"><span class="snb_ss" style="font-size: 20px;"><?= __('Total')?></span> <span class="snb_dd"><?php echo $grandTotal; ?></span></div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        </div>
+<?php endif;?>
+     <?php echo $block->getAdditionalInfoHtml() ?>
+    <div class="actions-toolbar full_box">
+        <span class="ned_hlp"> Need help? <a href="<?php echo $this->getUrl('contact'); ?>"><span style="color: #363636;"><?= __('Contact us')?></span></a></span>
+        <div class="primary cont_shoping_s">
+
+            <a class="action primary continue" href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>

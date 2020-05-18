@@ -1,0 +1,17 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$objectManager->get(\Psr\Log\LoggerInterface::class)->info('menu debug start -- '. date("M,d,Y h:i:s A"));
+$navigators = $this->getMainMenu();
+
+?>
+
+<ul class="menu">
+    <?php foreach ($navigators as $navigator): ?>
+        <li>
+            <a href="<?php echo $navigator->getLink(); ?>"><?php echo __($navigator->getName()); ?></a>
+            <?php // echo $block->filterOutputHtml($navigator->getContent()); ?>
+        </li>
+    <?php endforeach; ?>
+</ul>
+<div class="offermnu"><a href="<?= $this->getUrl('deals')?>"><?= __('SPECIAL OFFERS') ?>!</a></div>
+<?php //$objectManager->get(\Psr\Log\LoggerInterface::class)->info('menu debug end -- '. date("M,d,Y h:i:s A"));?>

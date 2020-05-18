@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Category left navigation
+ *
+ * @var $block \Magento\Catalog\Block\Navigation
+ */
+?>
+<?php if (!$block->getCategory()) {
+    return;
+} ?>
+<?php 
+    $_categories = $block->getCurrentChildCategories(); 
+    $helper = $this->helper('Alrais\VehicleFilter\Helper\Data');
+    $selectedVehicle = json_decode($helper->getVehicle());
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $mediaPath = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+        ->getStore()
+        ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count(); ?>
+<?php if ($selectedVehicle): ?>
+<div class="select_v">
+    <div class="img_hl"><img src="<?= $mediaPath ."logos/". $selectedVehicle->vehicle_image . ".jpg"?>" alt=""></div>
+    <div class="vehname">
+        <span><?= __($selectedVehicle->make)?></span>
+        <span><?= $selectedVehicle->year." ". __($selectedVehicle->model) ?></span>
+    </div>
+</div>
+<?php endif; ?>
+<?php if ($_count): ?>
+<div class="fiilters">
+    <div class="single_filter">
+        <h2><?= /* @escapeNotVerified */ __('Category') ?></h2>
+        <?php foreach ($_categories as $_category): ?>
+            <?php if ($_category->getIsActive()): ?>
+                <label class="chackobxcontainer">
+                    <a href="<?= /* @escapeNotVerified */ $block->getCategoryUrl($_category) ?>"<?php if ($block->isCategoryActive($_category)): ?> class="current"<?php endif; ?>><?= $block->escapeHtml($_category->getName()) ?></a>
+                    <input type="checkbox" onclick="document.location.href = '<?= $block->getCategoryUrl($_category) ?>'">
+                    <span class="checkmark"></span>
+                </label>
+            <?php endif; ?>
+        <?php endforeach ?>
+    </div>
+</div>      
+<?php endif; ?>

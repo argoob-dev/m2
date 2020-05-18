@@ -1,0 +1,75 @@
+<?php
+$productHelper = $this->helper('Alrais\ProductDetails\Helper\Data');
+$quickviewHelper = $this->helper('Alrais\Quickview\Helper\Data');
+$items = $productHelper->loadProducts($this->getProducts());
+?>
+<?php if (count($items) > 0): ?>
+    <div class="products wrapper">
+        <div class="Product_listing">
+            <ul class="Listing_product">
+                <?php foreach ($items as $item): ?>
+                    <li class="product_list_item">
+                        <div class="product_item">
+                            <a href="<?= $item->productUrl ?>">
+                                <div class="produuct_img">
+                                    <img src="<?= $item->imageUrl ?>" />
+                                </div>
+                                <h3><?= $item->name ?></h3>
+                            </a>    
+                            <div class="star_section">
+                                <div class="product-reviews-summary short">
+                                    <div class="rating-summary">
+                                        <div title="<?= $item->ratingPercentage ?>%" class="rating-result">
+                                            <span style="width:<?= $item->ratingPercentage ?>%"><span><?= $item->ratingPercentage ?>%</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price_all">
+                                <?php if ($item->discountPercentage > 0): ?>
+                                    <!-- <span class="regular_price"><?= $item->originalPrice; ?></span> -->
+                                <?php endif ?>
+                                
+                            <?php if ($product->getCustomAttribute('bundle_original_price')): ?>
+                                <!-- <span class="actaual_price bundle">AED <?php echo $product->getCustomAttribute('bundle_original_price')->getValue(); ?></span> -->
+                            <?php endif ?>
+
+                            <?php if ($product->getCustomAttribute('strikethrough_price')): ?>
+                                <span class="actaual_price simple">AED <?php echo $product->getCustomAttribute('strikethrough_price')->getValue(); ?></span>
+                            <?php endif ?>
+                            
+                                <span class="special_price"><?= $item->finalPrice; ?></span>
+
+                                <div class="stockstaus">
+                                    <?php if ($product->isAvailable()): ?>
+                                        <i class="fa fa-check-square-o"></i><span><?= /* @escapeNotVerified */ __('In stock') ?></span>
+                                    <?php else: ?>
+                                        <i class="fa fa-square-o"></i><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="cart_section">
+                                <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()): ?>
+                                    <?= $item->wishlist; ?>
+                                <?php endif; ?>
+                                <?= $item->addtocart; ?>
+                                <?= $quickviewHelper->getQuickView($item); ?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach ?>
+                <?php if ($block->getPagerHtml()): ?>
+                    <?php echo $block->getPagerHtml(); ?>
+                <?php endif ?>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/x-magento-init">
+        {
+        "[data-role=tocart-form], .form.map.checkout": {
+        "catalogAddToCart": {}
+        }
+        }
+    </script>
+<?php endif ?>

@@ -1,0 +1,266 @@
+.footer {
+    text-align: center;
+	float:left;
+	width:100%;
+	color:#0079aa;
+	font-weight:bold;
+	margin:0px 0px 10px 0px;
+}
+.footer-details
+{
+	width:100%;
+	float:left;
+	
+}
+.footer-copy-details
+{
+	width:100%;
+	float:left;
+	color:#DDD;
+}
+.header
+{
+	padding:10px 10px 30px 10px; float:left; width:100%;
+}
+.Arg-logo
+{
+	float:left;
+}
+.Bil-logo
+{
+	float:right
+}
+.content-box
+{
+	float:left; background-color:#FFF; padding: 20px 10px 10px 10px;  box-shadow: 10px 10px 5px #eeeeee; width: 100%;
+}
+.car-image-title
+{
+	float:left; width:100%; font-weight:bold; 
+}
+.car-model-title
+{
+	float:left; padding:10px 0px; font-weight:bold;
+}
+.Car-Heading
+{
+	color:#FFF; font-weight:bold;
+}
+.div-space
+{
+	width:100%; height:40px;  float:left;
+	
+	margin-top: 40px;
+    /*margin-bottom: 20px;*/
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.div-space1
+{
+	float:left;
+	width:100%;
+	border: 0;
+    border-top: 1px solid #eee;
+	margin-bottom: 30px;
+}
+.div-space2
+{
+	float:left;
+	width:100%;
+	border: 0;
+    border-top: 1px solid #eee;
+	margin-top:25px;
+
+}
+.Title-Heading
+{
+	
+	color:#FFF; font-weight:bold; float:left;  padding:10px 5px 5px 5px;
+	
+}
+.Title-Heading-button
+{
+   float:right; padding:5px; 
+   background-color:#FFF;
+}
+.Title-Heading-Select{
+	
+	color:#FFF; font-weight:bold; float:left;  padding:5px 5px 5px 5px;
+	
+}
+.Title-Heading-button1
+{
+   float:right; padding:5px; 
+   background-color:#FFF;
+}
+.Title-section
+{
+	width:100%; float:left;
+	border: 1px solid #DDD;
+	border-bottom:none;
+	background-color:#017baa;
+}
+.Title-section1
+{
+	width:100%; float:left;
+	background-color:#017baa;
+	margin-bottom:10px;
+	padding:5px;
+}
+
+.content-box-mobile
+{
+	float:left;
+	width:100%;
+	background-color: #FFF;
+    padding: 10px 10px;
+    box-shadow: 10px 10px 5px #eeeeee;
+	
+}
+.desktop-content-box
+{
+	float:left;
+	width:100%;
+}
+.example-image
+{
+	border:1px solid #017baa;
+}
+.brand-logo
+{
+	width:100%;
+	float:left;
+}
+.brand-logo img
+{
+	vertical-align: middle;
+    /* vertical-align: top; */
+    display: inline-block;
+    max-height: 120px;
+}
+.std {
+   /* padding: 0 20px;*/
+}
+.std ul {
+    margin: 20px 0;
+    padding: 0;
+	text-align:center;
+}
+.std ul li {
+    list-style: inside;
+}
+.imageGallery li {
+    list-style: none;
+    display: inline-block;
+    padding-left: 10px !important;
+    margin: 5px 10px 5px 5px;
+    width: 147px;
+    /* height: 150px; */
+    padding: 5px 10px;
+    border: 1px solid #dadada;
+	background-color:#FFF;
+}
+
+.responsiveImgcontainer {
+    position: relative;
+    width: 100%;
+}
+.galleryAlignFix {
+    padding-top: 40%;
+}
+.galleryImgContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font: 0/0 a;
+}
+.std a img {
+    /*width: 100%;*/
+}
+.galleryImgContainer img {
+    vertical-align: middle;
+    /* vertical-align: top; */
+    display: inline-block;
+    max-height: 120px;
+}
+.center
+{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.std ul li:hover
+{
+	background-color:#eee;
+	
+}
+.brand-image
+{
+	padding-top:10px;
+}
+.car-image
+{
+	float:left;
+	width:100%;
+	padding:10px 10px 10px 0px;
+}
+.dotted-blue-line
+{
+	float:left;
+	width:100%;
+	border: 0;
+    border-top:1px dotted #017baa;
+	margin-bottom: 20px;
+}
+.Title-Heading-buy
+{
+	
+	color:#FFF; font-weight:bold; float:left;  padding:10px 5px 5px 5px;
+	
+}
+.Title-Heading-button-buy
+{
+   float:right; padding:5px; 
+   background-color:#FFF;
+}
+.Title-Heading-contact
+{
+	
+	color:#FFF; font-weight:bold; float:left;  padding:10px 5px 5px 5px;
+	
+}
+.Title-Heading-button-contact
+{
+   float:right; padding:5px; 
+   background-color:#FFF;
+}
+.footer-details-date
+{
+	font-weight:normal;
+}
+.footer-details-mob
+{
+	font-weight:normal;
+}
+.scrollToTop{
+	width:50px; 
+	height:50px;
+	padding:10px; 
+	text-align:center; 
+	background: whiteSmoke;
+	font-weight: bold;
+	color: #444;
+	text-decoration: none;
+	position:fixed;
+	/*top:75px;*/
+	right:0px;
+	bottom:40px;
+	display:none;
+	background: url('../images/fleche_vers_haut1.png') no-repeat 0px 20px;
+}
+.scrollToTop:hover{
+	text-decoration:none;
+}

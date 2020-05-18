@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        
+        <update id="Alrais_Extensions::alraisextensions" title="Alrais Extensions" module="Magento_Backend" resource="Alrais_Extensions::alraisextensions"/>
+        <add id="Alrais_MainSlider::main" title="Main Slider" module="Alrais_MainSlider" sortOrder="40" resource="Alrais_MainSlider::slider" parent="Alrais_Extensions::alraisextensions"/>
+        <add id="Alrais_MainSlider::slider" title="Manage Slider" module="Alrais_MainSlider" sortOrder="50" parent="Alrais_MainSlider::main" action="mainslider/slider/" resource="Alrais_MainSlider::slider"/>
+        <add id="Alrais_MainSlider::attachment" title="Manage Slider Attachment" module="Alrais_MainSlider" sortOrder="50" parent="Alrais_MainSlider::main" action="mainslider/attachment/" resource="Alrais_MainSlider::attachment"/>
+        
+    </menu>
+</config>

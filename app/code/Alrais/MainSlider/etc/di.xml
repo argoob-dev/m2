@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Alrais Ltd. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Alrais\MainSlider\Api\SliderInterface" type="Alrais\MainSlider\Model\SliderApi"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="alrais_slider_listing_data_source" xsi:type="string">Alrais\Slider\Model\Resource\Slides\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Alrais\Slider\Model\Resource\Slides\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">alrais_slider</argument>
+            <argument name="eventPrefix" xsi:type="string">alrais_slider_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">slider_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Alrais\Slider\Model\Resource\Slides</argument>
+        </arguments>
+    </type>
+</config>

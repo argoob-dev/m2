@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+
+namespace Alrais\VehicleFilter\Model;
+
+class Vehicle extends \Magento\Framework\Model\AbstractModel
+{
+    /**
+     * Constructor
+     *
+     * @return void
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('Alrais\VehicleFilter\Model\Resource\Vehicle');
+    }
+}

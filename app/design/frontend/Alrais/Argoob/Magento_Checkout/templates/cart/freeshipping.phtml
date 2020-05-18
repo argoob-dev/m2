@@ -1,0 +1,8 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+$grandTotal = $cart->getQuote()->getGrandTotal();
+if($grandTotal< 200){
+?>
+<!-- <span class="spend"><?= __('Spend AED 200 or more and get free shipping')?></span> -->
+<?php } ?>

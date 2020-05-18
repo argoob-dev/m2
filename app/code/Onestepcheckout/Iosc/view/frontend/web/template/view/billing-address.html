@@ -1,0 +1,10 @@
+<div id="iosc-billing-container" class="checkout-shipping-address" data-bind="visible: shippingDomReady()">
+<div id="iosc_billingaddress" class="billing-address-same-as-shipping-block field choice" data-bind="visible: canUseShippingAddress()">
+    <input type="checkbox" name="billing-address-same-as-shipping" data-bind="checked: isUseBillingAddress, click: showBillingAddress, attr: {id: 'billing-address-same-as-shipping-'}"/>
+    <label data-bind="attr: {for: 'billing-address-same-as-shipping-'}"><span data-bind="i18n: 'I have a different billing address'"></span></label>
+</div>
+<fieldset class="fieldset" data-bind="visible: isBillingAddressDetailsVisible()">
+    <!-- ko template: 'Onestepcheckout_Iosc/view/billing-address/list' --><!-- /ko -->
+    <!-- ko template: 'Onestepcheckout_Iosc/view/billing-address/form' --><!-- /ko -->
+</fieldset>
+</div>

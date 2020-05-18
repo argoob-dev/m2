@@ -1,0 +1,25 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+// $objectManager->get(\Psr\Log\LoggerInterface::class)->info('model debug start -- '. date("M,d,Y h:i:s A"));
+$mediaPath = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+        ->getStore()
+        ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<section class="models">
+    <div class="container">
+        <h2 class="models_h2"><i class="fa fa-car"></i><?= __('MODELS')?></h2>
+        <ul class="model_vehicle">
+            <li><a href="<?php echo $this->getUrl('chevy.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/chevy.png"><span><?php echo __('CHEVY') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('ford.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/ford-raptor.png"><span><?php echo __('Ford') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('gmc.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/gmc.png"><span><?php echo __('GMC') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('jeep.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/jeep.png"><span><?php echo __('Jeep') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('toyota-tundra.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/tundra.png"><span><?php echo __('TUNDRA') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('dodge-ram.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/dodge-ram.png"><span><?php echo __('RAM') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('toyota.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/fj-cruiser.png"><span><?php echo __('FJ') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('nissan.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/nissan.png"><span><?php echo __('Nissan') ?></span></a></li>
+            <li><a href="<?php echo $this->getUrl('land-cruiser.html')?>"><img loading="lazy" src="<?= $mediaPath?>models/land-cruiser.png"><span><?php echo __('LAND CRUISER') ?></span></a></li>
+        </ul>
+
+    </div>
+</section>
+<?php // $objectManager->get(\Psr\Log\LoggerInterface::class)->info('model debug end -- '. date("M,d,Y h:i:s A"));?>

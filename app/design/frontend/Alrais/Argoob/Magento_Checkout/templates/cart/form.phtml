@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+?>
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+<form action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/updatePost') ?>"
+          method="post"
+          id="form-validate"
+          data-mage-init='{"Magento_Checkout/js/action/update-shopping-cart":
+              {"validationURL" : "/checkout/cart/updateItemQty"}
+          }'
+          class="update-cart-page">
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-top toolbar" data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+        <div class="cart_block">
+            <div class="carthead">
+                <div class="table_head"><?= /* @escapeNotVerified */ __('Item') ?></div>
+                <div class="table_head"><?= /* @escapeNotVerified */ __('Price') ?>
+                    <div class="devide">
+                        <span>(<?= /* @escapeNotVerified */ __('Incl.Tax') ?>)</span>
+                        <span>(<?= /* @escapeNotVerified */ __('Excl.Tax') ?>)</span>
+                    </div>
+                </div>
+                <div class="table_head"><?= /* @escapeNotVerified */ __('Qty') ?></div>
+                <div class="table_head"><?= /* @escapeNotVerified */ __('Subtotal') ?>
+                <div class="devide">
+                    <span>(<?= /* @escapeNotVerified */ __('Incl.Tax') ?>)</span>
+                    <span>(<?= /* @escapeNotVerified */ __('Excl.Tax') ?>)</span></div></div>
+                <div class="table_head"></div>
+            </div>
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar" data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+    </div>
+    <div class="cart_btns">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <a class="cart_btn"
+               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+               title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
+                <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
+            </a>
+        <?php endif; ?>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-empty=""
+                value="empty_cart"
+                title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
+                class="cart_btn" id="empty_cart_button">
+            <span><?= /* @escapeNotVerified */ __('Clear Shopping Cart') ?></span>
+        </button>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                class="cart_btn update-cart">
+            <span><?= /* @escapeNotVerified */ __('Update Shopping Cart') ?></span>
+        </button>
+        <a href="<?= $this->getUrl('checkout')?>" class="cart_btn right"><?= __('PROCEED TO CHECKOUT')?></a>
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+<?= $block->getChildHtml('checkout.cart.order.actions') ?>
+<?= $block->getChildHtml('shopping.cart.table.after') ?>

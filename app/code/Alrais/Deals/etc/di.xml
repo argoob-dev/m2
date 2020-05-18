@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="deal_grid_data_source" xsi:type="string">Alrais\Deals\Model\ResourceModel\Deal\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Alrais\Deals\Model\ResourceModel\Deal\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">alrais_deals</argument>
+            <argument name="eventPrefix" xsi:type="string">alrais_deals_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">alrais_deals_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Alrais\Deals\Model\ResourceModel\Deal</argument>
+        </arguments>
+    </type>
+    <virtualType name="DealGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Alrais\Deals\Model\ResourceModel\Deal\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DealGrrdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DealGrrdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

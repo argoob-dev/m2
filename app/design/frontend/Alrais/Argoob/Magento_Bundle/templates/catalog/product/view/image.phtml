@@ -1,0 +1,9 @@
+<?php
+    $_product = $block->getProduct();
+?>
+<?php /* @escapeNotVerified */ $json=$block->getGalleryImagesJson();
+$array = json_decode($json,true);
+if(!$array)
+echo $block->getImage($_product, 'bundled_product_customization_page')->toHtml() 
+
+?>

@@ -1,0 +1,32 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
+$categories = $categoryHelper->getStoreCategories();
+?>
+<ul>
+    <?php foreach ($categories as $category): ?>
+        <?php
+            $item = $objectManager->create('\Magento\Catalog\Model\Category')->load($category->getId());
+        ?>
+        <li>
+            <a href="<?php echo $item->getUrl() ?>">
+                <span><?php echo $category->getName() ?></span>
+            </a>
+        </li>
+        <?php
+        $subcategories = $category->getChildrenCategories();
+        if (count($subcategories) > 0) {
+            foreach ($subcategories as $subcategory):
+                ?>
+                <?php
+                    $subitem = $objectManager->create('\Magento\Catalog\Model\Category')->load($category->getId());
+                ?>
+                <li class="footer-category-li">
+                    <a href="<?= $subitem->getUrl() ?>">
+                        <span><?= $subcategory->getName(); ?> </span>
+                    </a>
+                </li> 
+            <?php endforeach; ?> 
+        <?php } ?>
+    <?php endforeach; ?>
+</ul>

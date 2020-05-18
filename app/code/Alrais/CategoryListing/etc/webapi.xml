@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <route url="/V1/mobile/categories/list" method="GET">
+        <service class="Alrais\CategoryListing\Api\CategoryListingInterface" method="categories"/>
+        <resources>
+            <resource ref="Alrais_CategoryListing::categories"/>
+        </resources>
+    </route>
+    <route url="/V1/mobile/storecategories/list" method="GET">
+        <service class="Alrais\CategoryListing\Api\CategoryListingInterface" method="getStoreCategories"/>
+        <resources>
+            <resource ref="Alrais_CategoryListing::getStoreCategories"/>
+        </resources>
+    </route>
+</routes>

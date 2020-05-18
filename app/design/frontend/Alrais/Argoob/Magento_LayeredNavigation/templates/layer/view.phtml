@@ -1,0 +1,71 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_AjaxLayer
+ * @copyright   Copyright (c) Mageplaza (http://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+$helper = $this->helper('Alrais\VehicleFilter\Helper\Data');
+$selectedVehicle = json_decode($helper->getVehicle());
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$mediaPath = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+    ->getStore()
+    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+?>
+
+<?php if ($block->canShowBlock()): ?>
+<div class="fiilters">
+    <?php if ($selectedVehicle): ?>
+    <div class="select_v">
+        <div class="img_hl"><img src="<?= $mediaPath ."logos/". $selectedVehicle->vehicle_image . ".jpg"?>" alt=""></div>
+        <div class="vehname">
+            <span><?= __($selectedVehicle->make)?></span>
+            <span><?= $selectedVehicle->year." ". __($selectedVehicle->model) ?></span>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?= $block->getChildHtml('state') ?>
+    <?php if ($block->getLayer()->getState()->getFilters()): ?>
+        <div class="block-actions filter-actions">
+            <a href="<?= /* @escapeNotVerified */ $block->getClearUrl() ?>" class="action clear filter-clear"><span><?= /* @escapeNotVerified */ __('Clear All') ?></span></a>
+        </div>
+    <?php endif; ?>
+    <button class="filter_container_btn"><i class="fa fa-filter"></i></button>
+    <div class="filter_container">
+        <?php foreach ($block->getFilters() as $filter): ?>
+            <?php if ($filter->getItemsCount()): ?>
+            <div class="single_filter">
+                <?php if($filter->getRequestVar() == 'cat'):?>
+                    <h2><?= $block->escapeHtml(__('Categories')) ?></h2>
+                <?php else : ?>
+                <h2><?= $block->escapeHtml(__($filter->getName())) ?></h2>
+                    <?php endif ?>
+                <?= $block->getChildBlock('renderer')->render($filter) ?>
+            </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+</div> 
+<script>
+    require(["jquery"],function($){
+        $(".filter_container_btn").on("click", function(){
+            $(".filter_container").toggle("filter_show");
+        });
+    });
+    </script>
+<?php endif; ?>

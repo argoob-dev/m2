@@ -1,0 +1,109 @@
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+<?php $objectManager->get(\Psr\Log\LoggerInterface::class)->info('deals debug start -- '. date("M,d,Y h:i:s A"));?>
+<?php
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+$productHelper = $objectManager->create('Magento\Catalog\Model\Product');
+$imageHelper = $objectManager->create('Magento\Catalog\Helper\Image');
+$wishlistHelper = $objectManager->create('Magento\Wishlist\Helper\Data');
+$postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+$cartBlock = $objectManager->create('Alrais\Addtocart\Block\Addtocart');
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$_reviewFactory = $objectManager->create('Magento\Review\Model\Review');
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$compareManager = $objectManager->create('Magento\Catalog\Helper\Product\Compare');
+$deal = $this->getDeal()->getData();
+$dealId = $deal[0]["deal_id"];
+//echo $dealId;
+
+
+$dealName = $deal[0]["deal_name"];
+$dealStartTime = $deal[0]["from_date"];
+$dealEndTime = $deal[0]["to_date"];
+$items = $this->getSelectedProducts($dealId);
+$countdowndate = strtotime($dealEndTime);
+if(count($items)>0){
+foreach ($items as $item) {
+    // product 
+
+    $product = $productHelper->load($item->getId());
+   
+    // product price details 
+    $price = $priceHelper->currency($product->getPrice(), true, false);
+    $finalprice = $priceHelper->currency($product->getFinalPrice(), true, false);
+    // product image
+    $photo = $imageHelper->init($product, 'product_page_image_small')->resize(350, 350)->setImageFile($product->getThumbnail())->keepAspectRatio(TRUE)->getUrl();
+    // wishlist params
+    $wishlistSubmitParams = $wishlistHelper->getAddParams($product);
+    // wishlist params for quick view
+    $wishlistSubmitParamsQuick = str_replace('"', "'", $wishlistHelper->getAddParams($product));
+
+    // addtocart params
+
+    $addtocart_postdata_str = json_encode($cartBlock->getAddToCartPostParams($product));
+    $addtocart_postdata = json_decode($addtocart_postdata_str);
+
+}
+?>
+
+ <div class="countsection">
+    <div class="count_img"><a href="<?php /* @escapeNotVerified */ echo $product->getProductUrl() ?>"><img src="<?php echo($photo); ?>"/></a></div>
+    <div class="count_txt"> <a href="#" class="text_decoration">
+            <h2><?php echo $dealName; ?></h2>
+            </a>
+            <p><?php echo $product->getName(); ?></p>
+    </div>
+     <div class="timer"> <span class="offerhd">Offer Ends In</span>
+            <ul class="example">
+              <li><span class="days" id="days">00</span>
+                <p class="days_text">Days</p>
+              </li>
+              <li class="seperator">:</li>
+              <li><span class="hours" id="hours">00</span>
+                <p class="hours_text">Hours</p>
+              </li>
+              <li class="seperator">:</li>
+              <li><span class="minutes" id="minutes">00</span>
+                <p class="minutes_text">Minutes</p>
+              </li>
+              <li class="seperator">:</li>
+              <li><span class="seconds" id="seconds">00</span>
+                <p class="seconds_text">Seconds</p>
+              </li>
+            </ul>
+          </div>
+</div>
+
+    
+
+<script>
+    var countDownDate = "<?php echo $countdowndate; ?>" + "000";
+    calcTime(countDownDate);
+    function calcTime(countDownDate) {
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("days").innerHTML = (days < 10) ? ("0" + days) : days;
+            document.getElementById("hours").innerHTML = (hours < 10) ? ("0" + hours) : hours;
+            document.getElementById("minutes").innerHTML = (minutes < 10) ? ("0" + minutes) : minutes;
+            document.getElementById("seconds").innerHTML = (seconds < 10) ? ("0" + seconds) : seconds;
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("clock-ddta").innerHTML = "<p>EXPIRED</p>";
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+            }
+        }, 1000);
+    }
+
+</script>
+<?php }?>
+<?php $objectManager->get(\Psr\Log\LoggerInterface::class)->info('deals debug end -- '. date("M,d,Y h:i:s A"));?>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <route url="/V1/banner/list/:storeId" method="GET">
+        <service class="Alrais\Banner\Api\BannerInterface" method="banners"/>
+        <resources>
+            <resource ref="Alrais_Banner::banners"/>
+        </resources>
+    </route>
+</routes>

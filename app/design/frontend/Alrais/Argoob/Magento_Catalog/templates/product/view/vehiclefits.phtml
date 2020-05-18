@@ -1,0 +1,21 @@
+<?php 
+$_product = $block->getProduct();
+$helper = $this->helper('Alrais\VehicleFilter\Helper\Data');
+$vehicles = $helper->getVehicleFitsProduct($_product->getId());
+?>
+<?php if( count($vehicles) > 0 ){ ?>
+    <div class="description">
+        <h3><?= __('Fits These Vehicles')?></h3>
+        <div class="row vehicleFits">
+            <?php foreach($vehicles as $vehicle):?>
+                <li class="col-xs-12 col-sm-6 col-md-4">
+                    <span class="smal"> <?= $vehicle->getYear()." ". __($vehicle->getMake())." ". __($vehicle->getModel()) ?></span>
+                </li> 
+            <?php endforeach;?>
+        </div>
+    </div>
+<?php }else{?>
+    <div class="description">
+        <h3><?= __('Universal Product')?></h3>
+    </div>
+<?php } ?>

@@ -1,0 +1,43 @@
+@media only screen and (max-width : 320px) {
+
+
+}
+@media only screen and (min-width:960px){
+.content-box-mobile
+{
+	display:none;
+}
+    }
+@media only screen and (max-width : 768px) {
+.desktop-content-box
+{
+	display:none;
+}
+.panel-title {
+	font-size:12px !important;
+}
+.content-box
+{
+	padding:5px !important;
+}
+.content-box-mobile
+{
+	padding: 0px 10px !important;
+}
+.div-space
+{
+	height:20px !important;
+}
+.Arg-logo
+{
+	text-align:center !important;
+	float:none !important;
+}
+.Bil-logo
+{
+	text-align:center !important;
+	float:none !important;
+	padding-top:10px;
+}
+	
+}

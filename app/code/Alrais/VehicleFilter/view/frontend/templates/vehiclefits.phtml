@@ -1,0 +1,13 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$makes = $this->getMakes();
+$mediaPath = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+        ->getStore()
+        ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+$selectedVehicle = json_decode($this->helper('Alrais\VehicleFilter\Helper\Data')->getVehicle());
+
+?>
+<div class="select_vehicle">
+    
+</div>
+<script  type="text/javascript" src="<?php echo $this->getViewFileUrl('Alrais_VehicleFilter::js/vehiclefits.js'); ?>" ></script>

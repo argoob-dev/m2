@@ -1,0 +1,33 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1589734008;s:6:"expire";i:9999999999;s:4:"tags";s:104:"095_ALGOLIA_SEARCH_HANDLE,095_ALGOLIA_SEARCH_HANDLE_WITH_TOPSEARCH,095_LAYOUT_GENERAL_CACHE_TAG,095_MAGE";}
+<head>
+   <script src="Algolia_AlgoliaSearch::internals/common.js"/>
+   <script src="Algolia_AlgoliaSearch::instantsearch.js"/>
+   <script src="Algolia_AlgoliaSearch::autocomplete.js"/>
+   <css src="Algolia_AlgoliaSearch::internals/algoliasearch.css"/>
+</head>
+<body>
+   <referenceBlock name="head.additional">
+      <block class="Algolia\AlgoliaSearch\Block\Configuration" name="algolia.internals.configuration" template="Algolia_AlgoliaSearch::internals/configuration.phtml"/>
+   </referenceBlock>
+   <referenceBlock name="main.content">
+      <block class="Magento\Framework\View\Element\Template" before="-" name="algolia.beforecontent" template="Algolia_AlgoliaSearch::internals/beforecontent.phtml"/>
+   </referenceBlock>
+   <referenceBlock name="before.body.end">
+      <block class="Algolia\AlgoliaSearch\Block\Algolia" name="algolia.autocomplete.product" template="Algolia_AlgoliaSearch::autocomplete/product.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.autocomplete.category" template="Algolia_AlgoliaSearch::autocomplete/category.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.autocomplete.page" template="Algolia_AlgoliaSearch::autocomplete/page.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.autocomplete.attribute" template="Algolia_AlgoliaSearch::autocomplete/attribute.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.autocomplete.suggestion" template="Algolia_AlgoliaSearch::autocomplete/suggestion.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.autocomplete.menu" template="Algolia_AlgoliaSearch::autocomplete/menu.phtml"/>
+      <block class="Algolia\AlgoliaSearch\Block\Instant\Wrapper" name="algolia.instant.wrapper" template="Algolia_AlgoliaSearch::instant/wrapper.phtml"/>
+      <block class="Algolia\AlgoliaSearch\Block\Instant\Hit" name="algolia.instant.hit" template="Algolia_AlgoliaSearch::instant/hit.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.instant.stats" template="Algolia_AlgoliaSearch::instant/stats.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.instant.facet" template="Algolia_AlgoliaSearch::instant/facet.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="algolia.instant.refinements" template="Algolia_AlgoliaSearch::instant/refinements.phtml"/>
+   </referenceBlock>
+</body>
+<body>
+   <referenceContainer name="header-wrapper">
+      <block class="Algolia\AlgoliaSearch\Block\Algolia" name="top.search" as="topSearch" template="Algolia_AlgoliaSearch::autocomplete.phtml"/>
+   </referenceContainer>
+</body>

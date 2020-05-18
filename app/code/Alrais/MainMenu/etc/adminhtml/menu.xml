@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Alrais. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        
+        <update id="Alrais_Extensions::alraisextensions" title="Alrais Extensions" module="Magento_Backend" resource="Alrais_Extensions::alraisextensions"/>
+        <add id="Alrais_MainMenu::main" title="Main Menu" module="Alrais_MainMenu" sortOrder="40" resource="Alrais_MainMenu::navigator" parent="Alrais_Extensions::alraisextensions"/>
+        <add id="Alrais_MainMenu::navigator" title="Manage Menu" module="Alrais_MainMenu" sortOrder="50" parent="Alrais_MainMenu::main" action="alrais_mainmenu/navigator/" resource="Alrais_MainMenu::navigator"/>
+        
+    </menu>
+</config>

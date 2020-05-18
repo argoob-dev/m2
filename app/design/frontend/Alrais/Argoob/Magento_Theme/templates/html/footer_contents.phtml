@@ -1,0 +1,272 @@
+<section class="footer_contentarea">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="foot_list">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('my-account-block')->toHtml(); ?>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="foot_list">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer-links-block')->toHtml(); ?>
+                </div>
+            </div>
+            <div class="col-md-3">
+
+                <div class="foot_list">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer-categories-block')->toHtml(); ?>
+                </div> 
+            </div>
+            <div class="col-md-3">
+                <div class="foot_list">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('support-block')->toHtml(); ?>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footerpara">
+                    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('about-block')->toHtml(); ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer_cat">
+                    <h2><?= __('Categories')?></h2>
+                    <?php echo $this->getLayout()->createBlock('Magento\Theme\Block\Html\Footer')->setTemplate("Alrais_CategoryListing::bottom_categories.phtml")->toHtml(); ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('copyright-block')->toHtml(); ?></div>
+            <div class="col-md-6">,<img src="<?= $this->getViewFileUrl('img/dubai.jpg') ?>" class="dubai_logo" alt=""></div>
+        </div>
+    </div>
+</section>
+<script>
+require(['jquery'], function ($) {
+    function savingsCalc() {
+        jQuery('.special_price').each(function(){
+            if(jQuery(this).prev('.actaual_price').html()){
+                if(jQuery(this).parent().siblings('.product_nme').children('.price-savings').html() == undefined) {
+                    var currentPrice = jQuery(this).html(); 
+                    var actualPrice = jQuery(this).prev('.actaual_price').html();
+
+                    currentPrice = parseInt(currentPrice.replace(/[^\d.-]/g, ''), 10);
+                    actualPrice = parseInt(actualPrice.replace(/[^\d.-]/g, ''), 10);
+
+                    var difference = actualPrice - currentPrice;
+                    
+                    jQuery(this).parent().siblings('.product_nme').append("<span class='price-savings'>Save AED "+difference+"</span>");
+                } 
+            }
+        });
+    }
+
+    jQuery('#algolia-searchbox .magnifying-glass i').on('click', function() { 
+        jQuery( "#search_mini_form" ).trigger( "submit" );
+    });
+
+
+    $( document ).ready(function() {
+        $('.messages').show();
+        setTimeout(function() {
+            $('.messages').fadeOut('slow');
+        }, 10000);
+
+    });
+
+    if($('.catalog-product-view .product.attribute.overview ~ .actaual_price')){
+        $('.catalog-product-view .price-container').prepend( $('.catalog-product-view .product.attribute.overview ~ .actaual_price') );
+        $('.catalog-product-view .price-container .actaual_price').show();
+
+    }
+   
+
+    $( document ).ajaxComplete(function() {
+        $('.messages').show();
+        setTimeout(function() {
+            $('.messages').fadeOut('slow');
+        }, 10000);
+    });
+    $(window).load(function () {
+		if ($(window).width() < 768) {
+			$(document).scroll(function () {
+				var y = $(this).scrollTop();
+				if (y > 150) {
+					$(".topstrip").addClass("fixed");
+				}
+				else {
+					$(".topstrip").removeClass("fixed");
+				}
+			});
+		}
+	});	
+    $(window).resize(function () {
+		if ($(window).width() < 768) {
+            $(document).scroll(function () {
+				var y = $(this).scrollTop();
+				if (y > 150) {
+					$(".topstrip").addClass("fixed");
+				}
+				else {
+					$(".topstrip").removeClass("fixed");
+				}
+			});
+		}
+	});	
+    
+});
+</script>
+<script>
+require(["jquery"], function ($) {
+    $(window).load(function(){
+        if ($(window).width() > 769) {
+            $(document).ready(function() { 
+                if (Modernizr.touch) { 
+                    $( ".menu-link" ).click(function( event ) {
+                        event.preventDefault();
+                    });
+                }
+            });
+            function is_touch_device() {
+                return !!('ontouchstart' in window);
+            }
+		}
+
+        var categoryListShow= 0;
+        var showdeal= 0;
+        var showofferdeal= 0;
+        var shownewarrivals= 0;
+        var showbottomoffer= 0;
+        var showbackinstock= 0;
+        var showclearance= 0;
+
+        function savingsCalc() {
+            jQuery('.special_price').each(function(){
+                if(jQuery(this).prev('.actaual_price').html()){
+                    if(jQuery(this).parent().siblings('.product_nme').children('.price-savings').html() == undefined) {
+                        var currentPrice = jQuery(this).html(); 
+                        var actualPrice = jQuery(this).prev('.actaual_price').html();
+
+                        currentPrice = parseInt(currentPrice.replace(/[^\d.-]/g, ''), 10);
+                        actualPrice = parseInt(actualPrice.replace(/[^\d.-]/g, ''), 10);
+
+                        var difference = actualPrice - currentPrice;
+                        
+                        jQuery(this).parent().siblings('.product_nme').append("<span class='price-savings'>Save AED "+difference+"</span>");
+                    } 
+                }
+            });
+        }
+
+        $(window).bind('scroll', function() {
+            if($(".page-layout-home").length > 0){
+                if($(window).scrollTop() >= $(".category_list").prevAll("section").first().offset().top + $(".category_list").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                    if(categoryListShow == 0){
+                        $.ajax({
+                            type: 'get',
+                            url: "<?= $this->getUrl('categories/featured/index'); ?>",
+                            success: function (response) {
+                                $(response).hide().appendTo(".category_list").fadeIn(1000);
+                                $('.category_list .loading-mask').remove();
+                            }
+                        });
+                    }
+                    categoryListShow++;
+                }
+                if($(window).scrollTop() >= $("#deal_list").prevAll("section").first().offset().top + $("#deal_list").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                    if(showdeal == 0 ){
+                        $.ajax({
+                            type: 'get',
+                            url: "<?= $this->getUrl('deals/products/index'); ?>",
+                            success: function (response) {
+                                $(response).hide().appendTo("#deal_list").fadeIn(1000);
+                                $("#deal_list .loading-mask").remove();
+                                savingsCalc();
+                            }
+                        });
+                        showdeal++;
+                        
+                        $( "form[data-role='tocart-form']" ).catalogAddToCart();
+                    }
+                }
+                if($(window).scrollTop() >= $("#offer_banners").prevAll("section").first().offset().top + $("#offer_banners").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                    if(showofferdeal == 0 ){
+                        $.ajax({
+                            type: 'get',
+                            url: "<?= $this->getUrl('banner/top/index'); ?>",
+                            success: function (response) {
+                                $(response).hide().appendTo("#offer_banners").fadeIn(1000);
+                                $("#offer_banners .loading-mask").remove();
+                                savingsCalc();
+                            }
+                        });
+                        showofferdeal++;
+                    }
+                }
+                if($(window).scrollTop() >= $("#newarrival-items").prevAll("section").first().offset().top + $("#newarrival-items").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                    if(shownewarrivals == 0 ){
+                        $.ajax({
+                            type: 'get',
+                            url: "<?= $this->getUrl('productwidget/widget/newarrivals'); ?>",
+                            success: function (response) {
+                                $(response).hide().appendTo("#newarrival-items").fadeIn(1000);
+                                $("#newarrival-items .loading-mask").remove();
+                                savingsCalc();
+                            }
+                        });
+                        shownewarrivals++;
+                        
+                    }
+                }
+                // if($(window).scrollTop() >= $("#bottom-banners").prevAll("section").first().offset().top + $("#bottom-banners").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                //     if(showbottomoffer == 0 ){
+                //         $.ajax({
+                //             type: 'get',
+                //             url: "<?= $this->getUrl('banner/bottom/index'); ?>",
+                //             success: function (response) {
+                //                 $(response).hide().appendTo("#bottom-banners").fadeIn(1000);
+                //                 $("#bottom-banners .loading-mask").remove();
+                //             }
+                //         });
+                //         showbottomoffer++;
+                // savingsCalc();
+                //     }
+                // }
+                if($(window).scrollTop() >= $("#backinstock-items").prevAll("section").first().offset().top + $("#backinstock-items").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                    if(showbackinstock == 0 ){
+                        $.ajax({
+                            type: 'get',
+                            url: "<?= $this->getUrl('productwidget/widget/backInStock'); ?>",
+                            success: function (response) {
+                                $(response).hide().appendTo("#backinstock-items").fadeIn(1000);
+                                $("#backinstock-items .loading-mask").remove();
+                                savingsCalc();
+                            }
+                        });
+                        showbackinstock++;
+                        
+                    }
+                }
+                // if($(window).scrollTop() >= $("#clearance-items").prevAll("section").first().offset().top + $("#clearance-items").prevAll("section").first().outerHeight() - window.innerHeight ) {
+                //     if(showclearance== 0 ){
+                //         $.ajax({
+                //             type: 'get',
+                //             url: "<?= $this->getUrl('productwidget/widget/clearance'); ?>",
+                //             success: function (response) {
+                //                 $(response).hide().appendTo("#clearance-items").fadeIn(1000);
+                //                 $("#clearance-items .loading-mask").remove();
+                //             }
+                //         });
+                //         showclearance++;
+                // savingsCalc();
+                //     }
+                // }
+            }
+        });
+    });
+});
+</script>

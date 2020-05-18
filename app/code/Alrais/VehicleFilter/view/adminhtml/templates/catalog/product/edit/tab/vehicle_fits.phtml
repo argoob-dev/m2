@@ -1,0 +1,426 @@
+<link  rel="stylesheet" type="text/css"  media="all" href="<?php echo $this->getViewFileUrl('Alrais_VehicleFilter::css/vehiclefits.css'); ?>" />  
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<?php
+$makes = $this->getMakes();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+
+$vehicles = $this->getVehicles($product->getId());
+?>
+<div class="vehicle-container">
+    <div id="vehicle-fits-messages">
+        <div class="messages">
+            <div class="message message-error error">
+            </div>
+        </div>
+    </div>
+    <div class="vehicle-fits-container">
+        <div class="vehicle-fits-make-container">
+            <label>Make</label>
+            <select class="vehicle-fits-make" id="vehicle-fits-make" size="8">
+                <?php foreach ($makes as $make) { ?>
+                    <option value="<?= $make->getId() ?>"><?= $make->getMakeEn() ?></option>
+                <?php } ?>
+            </select>
+            <input type="text" value="" class="vehicle-make-new" placeholder="Add make"> 
+            <button class="vehicle-make-add">+</button>
+        </div>
+        <div class="vehicle-fits-model-container">
+            <label>Model</label>
+            <select class="vehicle-fits-model" id="vehicle-fits-model" size="8">
+
+            </select>
+            <input type="text" value="" class="vehicle-model-new" placeholder="Add model"> 
+            <button class="vehicle-model-add">+</button>
+        </div>
+        <div class="vehicle-fits-year-container">
+            <label>Year</label>
+            <select class="vehicle-fits-year" id="vehicle-fits-year" size="8">
+            </select>
+            <input type="text" value="" class="vehicle-year-new" placeholder="Add year"> 
+            <button class="vehicle-year-add">+</button>
+        </div>
+        <input type="hidden" id="current_vehicle" value="" data-name="">
+        <div class="vehicle-add-container">
+            <button class="vehicle-add" disabled="">Add Vehicle</button>
+        </div>
+
+    </div>
+    <div class="product-vehicle-container">
+        <button class="vehicle-mass-remove" disabled="">Remove Selected</button>
+        <div class="vehicle-info-panel">
+            <?php foreach ($vehicles as $vehicle) { ?>
+                <?php if($vehicle->getVehicle() != ""){?>
+                    <div class="vehicle-info-container">
+                        <input type="checkbox" name="vehicle_check[]" class="vehicle-check" >
+                        <input type="hidden" name="vehicle[]" value="<?= $vehicle->getMakeModelYearId() ?>" class="vehicle-id">
+                        <span class="vehicle-name"><?= $vehicle->getVehicle() ?></span>
+                        <a class="vehicle-remove" href="#"><span class="icon-trash"></span></a>
+                    </div>
+                <?php }?>
+            <?php } ?> 
+        </div>
+    </div>
+</div>
+<style>
+    .vehicle-fits-container,.product-vehicle-container{
+        width:50%;
+        float:left;
+    }
+    .vehicle-info-panel{
+        max-height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #d2d2d2;
+        padding: 10px;
+    }
+    .vehicle-fits-container select{
+        min-width:100px;
+        width:160px;
+        height: 200px;
+    }
+    .vehicle-fits-make-container{
+        width:33.33%;
+        float:left;
+    }
+    .vehicle-fits-container label{
+        width:100%;
+        float:left;
+        font-size: 16px;
+        padding-bottom: 5px;
+    }
+    .vehicle-fits-model-container{
+        width:33.33%;
+        float:left;
+    }
+    .vehicle-fits-year-container{
+        width:33.33%;
+        float:left;
+    }
+    .vehicle-info-container {
+        border: 1px solid #d2d2d2;
+        font-size: 15px;
+        margin: 0px 0px 10px 0px;
+        padding: 8px;
+        background: #f8f8f8;
+    }
+    .vehicle-info-container .vehicle-check{
+        width:10%;
+        float:left;
+    }
+    .vehicle-info-container .vehicle-name{
+        width:80%;
+        float:left;
+    }
+    .vehicle-fits-container .vehicle-remove{
+        float:right;
+        width:10%;
+    }
+    .icon-trash::before{
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 15px;
+        line-height: inherit;
+        color: #0F0F0D;
+        content: '\e630';
+        font-family: 'Admin Icons';
+    }
+    .vehicle-mass-remove{
+        margin-bottom: 10px;
+    }
+    .vehicle-add{
+        margin-top: 10px;
+    }
+    .vehicle-fits-container select option {
+        padding: 3px 0px 3px 10px;
+    }
+    .vehicle-fits-container .vehicle-make-new,
+    .vehicle-fits-container .vehicle-model-new,
+    .vehicle-fits-container .vehicle-year-new{
+        height: 33px;
+        margin-top: 10px;
+        width: 118px;
+        padding: 10px;
+    }
+    .vehicle-fits-model-container, .vehicle-fits-year-container{
+        display: none;
+    }
+    .vehicle-add-container{
+        width:100%;
+        float:left;
+    }
+    #vehicle-fits-messages .message.message-error.error{
+        display:none;
+    }
+    .admin__field[data-index="vehicle"]{
+        display:none;   
+    }
+</style>
+
+<script type="text/javascript">
+    require(["jquery", 'Magento_Ui/js/modal/confirm', 'jquery/ui'], function ($, confirmation) {
+        $("#vehicle-fits-make").on("change", function () {
+            $.ajax({
+                url: "<?= $this->getUrl('alrais_vehiclefilter/model/model'); ?>",
+                data: {"make_id": $(this).val()},
+                showLoader: true,
+                type: 'get',
+                dataType: 'json'
+            }).done(function (data) {
+                $("#vehicle-fits-model").empty();
+                $("#vehicle-fits-year").empty();
+                $(data).each(function () {
+                    if (this.model_name) {
+                        $("#vehicle-fits-model").append($("<option>")
+                                .attr('value', this.model_id).text(this.model_name));
+                    }
+                });
+                if ($("#vehicle-fits-make").val()) {
+                    $(".vehicle-fits-model-container").css("display", "block");
+                    $(".vehicle-fits-year-container").css("display", "none");
+                } else {
+                    $(".vehicle-fits-model-container").css("display", "none");
+                }
+                checkButtonVisibilty();
+            });
+        });
+
+        $("#vehicle-fits-model").on("change", function () {
+            $.ajax({
+                url: "<?= $this->getUrl('alrais_vehiclefilter/year/year'); ?>",
+                data: {"make_id": $("#vehicle-fits-make").val(), "model_id": $(this).val()},
+                showLoader: true,
+                type: 'get',
+                dataType: 'json'
+            }).done(function (data) {
+                $("#vehicle-fits-year").empty();
+                $(data).each(function () {
+                    if (this.year) {
+                        $("#vehicle-fits-year").append($("<option>")
+                                .attr('value', this.year_id).text(this.year));
+                    }
+                });
+                if ($("#vehicle-fits-model").val()) {
+                    $(".vehicle-fits-year-container").css("display", "block");
+                } else {
+                    $(".vehicle-fits-year-container").css("display", "none");
+                }
+                checkButtonVisibilty();
+            });
+        });
+
+        $("#vehicle-fits-year").on("change", function () {
+            $.ajax({
+                url: "<?= $this->getUrl('alrais_vehiclefilter/year/vehicle'); ?>",
+                data: {"make_id": $("#vehicle-fits-make").val(), "model_id": $("#vehicle-fits-model").val(), "year_id": $(this).val()},
+                showLoader: true,
+                type: 'get',
+                dataType: 'json'
+            }).done(function (data) {
+                $("#current_vehicle").val(data.id).attr("data-name", data.vehicle);
+                checkButtonVisibilty();
+            });
+        });
+        
+        $(".vehicle-add").on("click", function () {
+                    var id = $("#current_vehicle").val();
+                    var name = $("#current_vehicle").attr("data-name");
+                    var html = '<div class="vehicle-info-container"><input type="checkbox" '
+                            + 'name="vehicle_check[]" class="vehicle-check" >'
+                            + '<input type="hidden" name="vehicle[]" value="'
+                            + id + '" class="vehicle-id" >'
+                            + '<span class="vehicle-name">' + name + '</span>'
+                            + '<a class="vehicle-remove" href="#"><span class="icon-trash"></span></a></div>';
+                    $(".vehicle-info-panel").append(html);
+                    $(".vehicle-info-panel").animate({scrollTop: $(".vehicle-info-panel").height() + 300}, 1000);
+                    var vehicleids = [];
+                    $(".vehicle-id").each(function(){
+                        vehicleids.push($(this).val())
+                    })
+                    $('input[name="product[vehicle]"]').val(vehicleids).change();
+                
+        });
+        
+        $("body").on("click", ".vehicle-remove", function () {
+            var vehicle = $(this).closest(".vehicle-info-container").remove();
+            var vehicleids = [];
+            $(".vehicle-id").each(function(){
+                vehicleids.push($(this).val())
+            })
+            $('input[name="product[vehicle]"]').val(vehicleids).change();
+        });
+        $("body").on("click", ".vehicle-check", function () {
+            if ($(".vehicle-check:checked").length > 0) {
+                $(".vehicle-mass-remove").removeAttr("disabled");
+            } else {
+                $(".vehicle-mass-remove").attr("disabled", "");
+            }
+        });
+        $(".vehicle-mass-remove").on("click", function () {
+            var ids = [];
+            $(".vehicle-check:checked").each(function () {
+                ids.push($(this).closest(".vehicle-info-container").find(".vehicle-product-id").val());
+            });
+            if (ids) {
+                confirmation({
+                    title: 'Remove Vehicles',
+                    content: 'Do you want to remove these vehicles?',
+                    actions: {
+
+                        confirm: function () {
+                            $.ajax({
+                                url: "<?= $this->getUrl('alrais_vehiclefilter/vehicle/ajaxMassDelete'); ?>",
+                                data: {"ids": ids},
+                                showLoader: true,
+                                type: 'post',
+                                dataType: 'json'
+                            }).done(function (data) {
+                                $(".vehicle-check:checked").each(function () {
+                                    $(this).closest(".vehicle-info-container").remove();
+                                });
+                                var vehicleids = [];
+                                $(".vehicle-id").each(function(){
+                                    vehicleids.push($(this).val())
+                                })
+                                $('input[name="product[vehicle]"]').val(vehicleids).change();
+                            });
+                        },
+
+                        cancel: function () {
+                            return false;
+                        }
+                    }
+                });
+            }
+        });
+
+        $(".vehicle-make-add").on("click", function () {
+            var url = "<?= $this->getUrl('alrais_vehiclefilter/make/ajaxSave'); ?>";
+            var content = {"make_en": $(".vehicle-make-new").val()};
+            addNew(url, content, "make");
+        });
+
+        $(".vehicle-model-add").on("click", function () {
+            var url = "<?= $this->getUrl('alrais_vehiclefilter/model/ajaxSave'); ?>";
+            var content = {"model_en": $(".vehicle-model-new").val()};
+            addNew(url, content, "model");
+        });
+
+        $(".vehicle-year-add").on("click", function () {
+            var url = "<?= $this->getUrl('alrais_vehiclefilter/year/ajaxSave'); ?>";
+            var content = {"year": $(".vehicle-year-new").val()};
+            addNew(url, content, "year");
+        });
+
+        function addNew(url, content, type) {
+            $.ajax({
+                url: url,
+                data: content,
+                showLoader: true,
+                type: 'post',
+                dataType: 'json'
+            }).done(function (data) {
+                if (!data.message) {
+                    switch (type) {
+                        case "make":
+                            if ($("#vehicle-fits-make option[value=" + data.id + "]").length == 0) {
+                                $("#vehicle-fits-make").append($("<option>")
+                                        .attr('value', data.id).text(data.make_en));
+                            }
+                            break;
+                        case "model":
+                            if ($("#vehicle-fits-model option[value=" + data.id + "]").length == 0) {
+                                $("#vehicle-fits-model").append($("<option>")
+                                        .attr('value', data.id).text(data.model_en));
+                            }
+                            break;
+                        case "year":
+                            if ($("#vehicle-fits-year option[value=" + data.id + "]").length == 0) {
+
+                                $("#vehicle-fits-year").append($("<option>")
+                                        .attr('value', data.id).text(data.year));
+                            }
+                            break;
+                    }
+
+                }
+            });
+        }
+
+        function checkButtonVisibilty() {
+            if ($("#vehicle-fits-make").val() && $("#vehicle-fits-model").val() && $("#vehicle-fits-year").val()) {
+                $(".vehicle-add").removeAttr("disabled");
+            } else {
+                $(".vehicle-add").attr("disabled", "");
+            }
+        }
+        $(".vehicle-make-new").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?= $this->getUrl('alrais_vehiclefilter/make/makeList'); ?>",
+                    dataType: "json",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 3,
+            select: function (e, ui) {
+                e.preventDefault();
+                if ($("#vehicle-fits-make option[value=" + ui.item.value + "]").length == 0) {
+                    $("#vehicle-fits-make").append($("<option>")
+                            .attr('value', ui.item.value).text(ui.item.label));
+                }
+                $(this).val(ui.item.label);
+            }
+        });
+        $(".vehicle-model-new").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?= $this->getUrl('alrais_vehiclefilter/model/modelList'); ?>",
+                    dataType: "json",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 3,
+            select: function (e, ui) {
+                e.preventDefault();
+                if ($("#vehicle-fits-model option[value=" + ui.item.value + "]").length == 0) {
+                    $("#vehicle-fits-model").append($("<option>")
+                            .attr('value', ui.item.value).text(ui.item.label));
+                }
+                $(this).val(ui.item.label);
+            }
+        });
+        $(".vehicle-year-new").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "<?= $this->getUrl('alrais_vehiclefilter/year/yearList'); ?>",
+                    dataType: "json",
+                    data: {
+                        q: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 3,
+            select: function (e, ui) {
+                e.preventDefault();
+                if ($("#vehicle-fits-year option[value=" + ui.item.value + "]").length == 0) {
+                    $("#vehicle-fits-year").append($("<option>")
+                            .attr('value', ui.item.value).text(ui.item.label));
+                }
+                $(this).val(ui.item.label);
+            }
+        });
+    });
+</script>

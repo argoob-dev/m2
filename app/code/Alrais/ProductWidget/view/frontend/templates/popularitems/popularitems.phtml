@@ -1,0 +1,18 @@
+<div class="col-md-4">
+    <h2><?= __('POPULAR ITEMS')?></h2>
+    <ul class="small_itemlist" id="popular-items">
+        <div class="loading-mask" data-role="loader">
+            <div class="loader">
+                <img alt="Loading..." src="">
+                <p>Please wait...</p>
+            </div>
+        </div>
+    </ul>
+</div>
+<script type="text/x-magento-init">
+    {
+    "[data-role=tocart-form], .form.map.checkout": {
+    "catalogAddToCart": {}
+    }
+    }
+</script>

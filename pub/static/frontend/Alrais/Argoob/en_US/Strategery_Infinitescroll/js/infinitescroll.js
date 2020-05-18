@@ -1,0 +1,1 @@
+/var/www/html/argoob/app/code/Strategery/Infinitescroll/view/frontend/web/js/infinitescroll.js

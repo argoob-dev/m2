@@ -1,0 +1,10 @@
+<?php
+ 
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$brandModel = $objectManager->create('Codazon\Shopbybrandpro\Model\BrandFactory')->create();
+$_product = $block->getProduct();
+$codazon = $objectManager->create('Codazon\Shopbybrandpro\Block\Brand\BrandInformation');
+$brandModel->setOptionId($_product->getManufacturer())->load(null);
+$brandModel->setThumbnail($codazon->getThumbnailImage($brandModel, ['width' => 81]));
+?>
+<img class="brand-image" itemprop="image" src="<?php echo $brandModel->getThumbnail(); ?>" />

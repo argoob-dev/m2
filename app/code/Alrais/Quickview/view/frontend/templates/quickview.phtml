@@ -1,0 +1,97 @@
+<div id="quickview-popup" class="simplePopup">
+    <div class="left_side">
+        <div class="quickview_img">
+            <a href="" id="qv_product_url"><img id="qv_product_image"/></a>
+        </div>
+    </div>
+    <div class="right_side">
+        <div class="product_quick_view_details">
+            <h2 id="qv_product_title"></h2>
+            <div id="qv_sku"></div>
+            <div id="qv_brand"></div>
+            <p id="qv_product_description"></p>
+            <div class="price_detailpage">
+                <span class="regular_price" id="qv_product_original_price"></span>
+                <span class="special_price" id="qv_product_final_price"></span>
+                <small><span class="discount" id="discount"></span></small>
+            </div>
+
+            <div id="product_configuration"></div>
+            <div class="quickview_btns" id="qv_product_actions">
+                <div class="quick_btn quckvw_wshlist_btn"></div>
+                <div class="quick_btn quckvw_addtocrt_btn"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery','Magento_Ui/js/modal/modal'], function ($, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            buttons: false,
+            opened:function(){
+                
+            }
+        };
+        var popup = modal(options, $('#quickview-popup'));
+        $(document).ready(function () {
+            $('body').on("click",".quickview",function () {
+                $('#quickview-popup').modal("openModal");
+                var element = $(this);
+                var imageUrl = element.attr("data-image");
+                var name = element.attr("data-name");
+                var description = element.attr("data-desc");
+                var originalPrice = element.attr("data-originalprice");
+                var finalPrice = element.attr("data-finalprice");
+                var formkey = element.attr("data-formkey");
+                var brand = element.attr("data-brand");
+                var productUrl = element.attr("data-producturl");
+                var brandurl = element.attr("data-brandurl");
+                var addtocart = element.attr("data-addtocart");
+                var wishlist = element.attr("data-wishlist");
+                var discount = element.attr("data-discount");
+                var sku = element.attr("data-sku");
+                if(imageUrl){
+                    $("#quickview-popup #qv_product_image").attr("src", imageUrl);
+                }
+                if(productUrl){
+                    $("#quickview-popup #qv_product_url").attr("href", productUrl);
+                }
+                if(name){
+                    $("#quickview-popup #qv_product_title").html(name);
+                }
+                if(description){
+                    $("#quickview-popup #qv_product_description").html(description);
+                }
+                if(finalPrice){
+                   $("#quickview-popup #qv_product_final_price").html(finalPrice);
+                }
+                if(sku){
+                   $("#quickview-popup #qv_sku").html("<?= __('SKU : ')?>"+sku);
+                }
+                if(brand){
+                   $("#quickview-popup #qv_brand").html(brand);
+                }
+                if (originalPrice == finalPrice) {
+                    $("#quickview-popup #qv_product_original_price").html('');
+                    $("#quickview-popup #discount").html('');
+                } else {
+                    $("#quickview-popup #qv_product_original_price").html(originalPrice).css({"color": "#B1B0B0", "text-decoration": "line-through"});
+                    $("#quickview-popup #qv_product_final_price").html(finalPrice).css({"color": "#9c0d24"});
+                    $("#quickview-popup #discount").html('(' + discount + ' Discount )');
+                }
+                var actions = "";
+                if(wishlist){
+                   $("#quickview-popup #qv_product_actions .quckvw_wshlist_btn").html(wishlist);
+                }
+                if(addtocart){
+                    $("#quickview-popup #qv_product_actions .quckvw_addtocrt_btn").html(addtocart);
+                }
+                $( "form[data-role='tocart-form']" ).catalogAddToCart();
+            });
+        });
+    });
+</script>

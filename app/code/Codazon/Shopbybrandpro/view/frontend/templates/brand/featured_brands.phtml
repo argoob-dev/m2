@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © 2017 Codazon, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$orderBy = $block->getConfigValue('codazon_shopbybrand/featured_brands/sort_by');
+$sortOrder = $block->getConfigValue('codazon_shopbybrand/featured_brands/sort_order');
+$brands = $block->getBrandObject($orderBy, $sortOrder, true);
+$pageLayout = $block->getLayout()->getUpdate()->getPageLayout();
+
+if (($pageLayout == '2columns-left') || ($pageLayout == '2columns-right')) {
+    $block->addData([
+        'slider_margin' => 10,
+        'items_1900' => 9,
+        'items_1600' => 8,
+        'items_1420' => 8,
+        'items_1280' => 8,
+        'items_980' => 7,
+        'items_768' => 6,
+        'items_480' => 5,
+        'items_320' => 3,
+        'items_0' => 1.5,
+    ]);
+} else {
+    $block->addData([
+        'slider_margin' => 20,
+        'items_1900' => 10,
+        'items_1600' => 9,
+        'items_1420' => 9,
+        'items_1280' => 9,
+        'items_980' => 7,
+        'items_768' => 6,
+        'items_480' => 5,
+        'items_320' => 3,
+        'items_0' => 1.5,
+    ]);
+}
+$itemPerCol = $block->getData('items_per_column');
+$itemCount = count($brands);
+$width = 120;
+$height = 120;
+$paddingBottom = 100 * $height / $width;
+$widget = ['themewidgets' => [
+        'codazon.slider' => ['sliderConfig' => $block->getSliderData(), 'noLoadedClass' => 'no-loaded']
+        ]];
+?>
+<?php if ($itemCount > 0): ?>
+<?php $i = 0; ?>
+<section class="brandarea">
+    <div class="container">
+        <div class="brands flex">
+            <div class="brand_head">
+            <div>
+                <h2><?= __('POPULAR ')?><?= __('BRANDS')?></h2>
+                <a href="<?= $this->getUrl('brands') ?>" class="btn"><?= __('View All')?></a>
+                </div>
+            </div>
+            <ul class="brand_logos">
+                <?php foreach ($brands as $brand) : ?>
+                    <?php if($i < 8): ?>
+                    <li>
+                        <a class="brand-link abs-img" href="<?= $brand->getUrl() ?>" title="<?= $brand->getBrandLabel(); ?>">
+                            <img class="brand-img owl-lazy zoom-eff" alt="<?= strip_tags($brand->getBrandLabel()) ?>" src="<?= $block->getThumbnailImage($brand, ['width' => $width, 'height' => $height]) ?>" />
+                        </a>
+                    </li>
+                    <?php endif ?>
+                    <?php $i++ ?>
+                <?php endforeach ?>
+            </ul>
+        </div>
+
+    </div>
+</section>
+<?php endif ?>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="alrais" translate="label" sortOrder="10">
+            <label>Alrais</label>
+        </tab>
+        <section id="quickview" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quickview</label>
+            <tab>alrais</tab>
+            <resource>Magento_Backend::content</resource>
+            <group id="attributes" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Manage Attributes</label>
+                <field id="attribute" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Attributes</label>
+                    <source_model>Alrais\Quickview\Model\Config\Source\Attributes</source_model>
+                </field>
+            </group>
+            <group id="options" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Manage Options</label>
+                <field id="list" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Options</label>
+                    <source_model>Alrais\Quickview\Model\Config\Source\Options</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

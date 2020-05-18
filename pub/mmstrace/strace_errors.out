@@ -1,0 +1,2 @@
+This section greps for keywords of interest: error, exception, connection
+     0.000146 open("/lib64/libgpg-error.so.0", O_RDONLY) = 3

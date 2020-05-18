@@ -1,0 +1,8 @@
+<script>
+require([
+        "onestepcheckoutIosc"
+], function (iosc) {
+    'use strict';
+    var IoscApp = new iosc(<?php echo $block->convertToJson(); ?>);
+});
+</script>

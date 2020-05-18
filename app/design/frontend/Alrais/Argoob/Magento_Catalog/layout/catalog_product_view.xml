@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="mage/gallery/gallery.css"/>
+    </head>
+    <update handle="catalog_product_opengraph" />
+    <update handle="page_calendar"/>
+    <body>
+        <move element="page.main.title" destination="product_detailpage.container.title.container" after="brand_logo"/>
+        <move element="product.info.overview" destination="product_detailpage.container.row.col-md-5.detaisl_pr.overview" after="product_detailpage.container.row.col-md-7.detaisl_pr.sku_v"/>
+        <move element="product.price.final" destination="product_detailpage.container.row.col-md-5.detaisl_pr.prices"/>
+        <move element="product.price.tier" destination="product_detailpage.container.row.col-md-5.detaisl_pr.prices" />
+        <move element="product.info.type" destination="product_detailpage.container.row.col-md-5.detaisl_pr.stockstaus" />
+        <move element="product.info" destination="product_detailpage.container.row.col-md-5.detaisl_pr" after="productfits.form"/>
+        <referenceBlock name="product.info.mailto" remove="true"/>
+        <referenceBlock name="product.info.social" remove="true"/>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.attributes" remove="true" />
+        <referenceBlock name="product.info.review" remove="true" />
+        <referenceBlock name="reviews.tab" remove="true" />
+        <referenceBlock name="product.info.media" remove="true" />
+        <referenceContainer name="content">
+            <container name="product_detailpage" htmlTag="section" htmlClass="product_detailpage" before="-">
+                <container name="product_detailpage.container.title.container" htmlTag="div" htmlClass="title-container" before="-">
+                    <block name="brand_logo" class="Magento\Catalog\Block\Product\View" template="product/view/brand_image.phtml" />
+                </container>
+                <container name="product_detailpage.container.row" htmlTag="div" htmlClass="row">
+                    <container name="product_detailpage.container.row.col-md-4" htmlTag="div" htmlClass="col-md-4">
+                        <block name="image-magnifier" class="Magento\Catalog\Block\Product\View" template="product/view/image.phtml" />
+                    </container>
+                    <container name="product_detailpage.container.row.col-md-5" htmlTag="div" htmlClass="col-md-5" after="product_detailpage.container.row.col-md-4">
+                        <container name="product_detailpage.container.row.col-md-5.detaisl_pr" htmlTag="div" htmlClass="detaisl_pr">
+                            <container name="product_detailpage.container.row.col-md-5.detaisl_pr.sku_v" htmlTag="div" htmlClass="sku_v">
+                                <block name="sku-pro" class="Magento\Catalog\Block\Product\View" template="product/view/sku.phtml" />
+                            </container>
+                            <container name="product_detailpage.container.row.col-md-5.detaisl_pr.overview" htmlTag="p"/>
+                            <container name="product_detailpage.container.row.col-md-5.detaisl_pr.prices" htmlTag="div" htmlClass="prices"/>
+                            <container name="product_detailpage.container.row.col-md-5.detaisl_pr.stockstaus" htmlTag="div" htmlClass="stockstaus"/>
+                            <block name="productfits.form" class="Alrais\VehicleFilter\Block\VehicleFits" template="productfits.phtml" cacheable="false" after="product_detailpage.container.row.col-md-5.detaisl_pr.stockstaus"/>
+                            <block name="share.this" class="Magento\Catalog\Block\Product\View" template="product/view/sharethis.phtml" after="product.info" />
+                        </container>
+                    </container>
+                    <container name="product_detailpage.container.row.col-md-3" htmlTag="div" htmlClass="col-md-3" after="product_detailpage.container.row.col-md-5">
+                        <block class="Magento\Cms\Block\Block" name="product.support">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">product.support</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="product.info.details">
+          <block class="Magento\Catalog\Block\Product\View" name="vehiclefits-tab" template="product/view/vehiclefits.phtml" group="detailed_info" >
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">Compatible Vehicles</argument>
+             </arguments>
+          </block>
+        </referenceBlock>
+    </body>
+</page>

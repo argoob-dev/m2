@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no"/> 
+        <css src="css/font-awesome.css"/>
+        <css src="css/bootstrap.css"/>
+        <css src="css/jquery.bxslider.css"/>
+        <css src="css/custom.css"/>
+        <css src="css/responsive.css"/>
+        <script src="js/modernizr.js"/>
+    </head>
+</page>

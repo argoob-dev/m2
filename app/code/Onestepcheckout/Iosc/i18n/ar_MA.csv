@@ -1,0 +1,66 @@
+"Order Summary","مراجعة طلبك",module,Magento_Checkout
+"Proceed to Checkout","عربة التسوق",module,Magento_Checkout
+"Apply Discount Code","رمز العرض الترويجي",module,Magento_Checkout
+"Enter discount code","إذا كنت تملك كوبونا فقم بإدخال الكود",module,Magento_Checkout
+"Apply Discount","استخدم الكوبون",module,Magento_Checkout
+"Clear Shopping Cart","إلغاء السلة",module,Magento_Checkout
+"Update Shopping Cart","تحديث سلة",module,Magento_Checkout
+"Continue Shopping","لمتابعة التسوق",module,Magento_Checkout
+"Order Total","إجمالي للطلب",module,Magento_Checkout
+"Shipping Methods","طريقة الشحن",module,Magento_Checkout
+"Payment Methods","طريقة الدفع",module,Magento_Checkout
+"Order Summary","مراجعة طلبك",module,Magento_Checkout
+"Place Order Now","اشتري الآن‎",module,Magento_Checkout
+"Shipping Address","عنوانك",module,Magento_Checkout
+"Al Ttay","الطي‎",module,Magento_Checkout
+"Warehouse Pickup","استلام الطلب من المستودع",module,Magento_Checkout
+"Free Shipping","شحن مجاني",module,Magento_Checkout
+"Cash On Delivery","الدفع النقدي عند التسليم",module,Magento_Checkout
+"Credit Card","بطاقة الائتمان",module,Magento_Checkout
+"Cart Subtotal","المجموع الفرعي للعربة",module,Magento_Checkout
+"Not yet calculated","لم تحسب بعد",module,Magento_Checkout
+"Order Total Incl. Tax","إجمالي الطلب بما في ذلك الضرائب",module,Magento_Checkout
+"Subscribe to newsletter","اشترك في النشرة الإخبارية",module,Magento_Checkout
+"Email Address","عنوان البريد الإلكتروني",module,Magento_Checkout
+"Register / Choose a password","تسجيل / اختر كلمة مرور",module,Magento_Checkout
+"Street Address","العنوان",module,Magento_Checkout
+"State/Province","حالة",module,Magento_Checkout
+"City","المدينة",module,Magento_Checkout
+"Country","بلد",module,Magento_Checkout
+"PO BOX","الرمز البريدي",module,Magento_Checkout
+"Phone Number","هاتف",module,Magento_Checkout
+"Company","الشركة",module,Magento_Checkout
+"I have a different billing address","لدي عنوان فوترة مختلف",module,Magento_Checkout
+"Billing Address","عنوان وصول الفواتير",module,Magento_Checkout
+"Add new shipping address","اضف عنوان شحن جديد",module,Magento_Checkout
+"Save in address book","حفظ في دفتر العناوين",module,Magento_Checkout
+"Add to address list","إضافة إلى قائمة العناوين",module,Magento_Checkout
+"Items in Cart","البنود في السلة",module,Magento_Checkout
+"View and Edit Cart","عرض وتحرير العربة",module,Magento_Checkout
+"Sorry, no quotes are available for this order at this time","عذرًا ، لا تتوفر علامات اقتباس لهذا الطلب في الوقت الحالي",module,Magento_Checkout
+"Please select a region, state or province.","يرجى اختيار منطقة أو ولاية أو مقاطعة.",module,Magento_Checkout
+"Abu Dhabi","أبو ظبي",module,Magento_Checkout
+"Dubai","دبي",module,Magento_Checkout
+"Sharjah","الشارقة",module,Magento_Checkout
+"Ajman","عجمان",module,Magento_Checkout
+"Ras Al Khaimah","رأس الخيمة",module,Magento_Checkout
+"Fujairah","الفجيرة",module,Magento_Checkout
+"Umm Al Quwain","أم القيوين",module,Magento_Checkout
+"Login","تسجيل الدخول",module,Magento_Checkout
+"Forgot Your Password?","هل نسيت كلمة المرور؟",module,Magento_Checkout
+"Confirm Password","تأكيد كلمة المرور",module,Magento_Checkout
+"Click here to continue shopping.","انقر هنا لمتابعة التسوق.",module,Magento_Checkout
+"items","البنود في السلة",module,Magento_Checkout
+"Abu Dhabi,"أبو ظبي"
+"Dubai,"دبي"
+"Sharjah,"الشارقة"
+"Ajman,"عجمان"
+"Ras Al Khaimah,"رأس الخيمة"
+"Fujairah,"الفجيرة"
+"Umm Al Quwain,"أم القيوين"
+"Click here to continue shopping.","انقر هنا لمتابعة التسوق.",module,Magento_Checkout
+"Click <a href=""%s"">here</a> to continue shopping.","انقر هنا لمتابعة التسوق.",module,Magento_Checkout
+
+
+
+

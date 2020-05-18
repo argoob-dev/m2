@@ -1,0 +1,1 @@
+/var/www/html/argoob/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/responsive.js

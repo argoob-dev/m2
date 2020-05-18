@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\OfflineShipping\Model\Carrier\Flatrate">
+        <plugin name="flatrate" type="Alrais\Cashondelivery\Plugin\Flatrate"/>
+    </type>
+    <type name="Magento\OfflineShipping\Model\Carrier\Pickup">
+        <plugin name="pickup" type="Alrais\Cashondelivery\Plugin\Pickup"/>
+    </type>
+    <type name="Magento\OfflineShipping\Model\Carrier\Tablerate">
+        <plugin name="tablerate" type="Alrais\Cashondelivery\Plugin\Tablerate"/>
+    </type>
+    <type name="Alrais\Shipping\Model\Carrier\Shipping">
+        <plugin name="shipping" type="Alrais\Cashondelivery\Plugin\Shipping"/>
+    </type>
+</config>

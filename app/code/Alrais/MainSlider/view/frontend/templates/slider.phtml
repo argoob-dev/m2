@@ -1,0 +1,137 @@
+<?php
+$count = 0;
+$slideCount = 0;
+$slideCounter = 0;
+$sliderArray = [];
+$sliderItems = [];
+$slideArrayMobile = [];
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$sliders = $this->getMainSlider();
+?>
+<style>
+    ul.bxslider {
+        -webkit-transform: translatez(0);
+        float: left;
+    }
+</style> 
+
+<section class="slider" id="mainslider">
+    <!-- <ul class="bxslider hides"> -->
+    <ul class="bxslider">
+        <?php
+        foreach ($sliders as $slider):
+            $status = $slider->getStatus();
+            ?>
+            <li class="slide-<?php echo $slideCount; ?>">
+                
+            </li>
+            <?php $slideCount++; ?>
+        <?php endforeach; ?>
+    </ul>
+</section>
+<script src="<?= $this->getViewFileUrl('Alrais_MainSlider::js/jquery.bxslider.js')?>"></script>
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            
+            $sliderArray = [ 
+                <?php foreach ($sliders as $slider):$status = $slider->getStatus();
+                    $count++;
+                    echo "[ ". $count .", '". $slider->getLink() ."', '". $this->getMediaUrl() . $slider->getImage() ."'],";
+                endforeach; ?>
+            ];
+
+            $sliderArrayMobile = [ 
+                <?php foreach ($sliders as $slider):$status = $slider->getStatus();
+                    $count++;
+                    echo "[ ". $count .", '". $slider->getLink() ."', '". $this->getMediaUrl() . $slider->getMobileImage() ."'],";
+                endforeach; ?>
+            ];
+            if($('.slider').width() > 768) {
+                $('.bxslider').bxSlider({
+                    nextText: '<div class="right_ctrl"><i class="fa fa-angle-right"></i></div>',
+                    prevText: '<div class="left_ctrl"><i class="fa fa-angle-left"></i></div>',
+                    autoControls: true,
+                    controls: true,
+                    preloadImages: 'visible',
+                    touchEnabled: false,
+                    preventDefaultSwipeY: true,
+                    auto: true,
+                    autoHover: true,
+                    pause: 4000,
+                    pager: false,
+                    onSliderLoad:function(){
+                        // $(".bxslider").removeClass("hides");
+                        $('.bxslider > li').eq(1).addClass('active-slide');
+                        
+                        if($('.slider').width() > 768) {
+                            let slideCounter = 0;
+                            $sliderArray.forEach(element => {
+                                $('.bxslider li.slide-'+slideCounter).append('<a class="web" href="'+$sliderArray[slideCounter][1]+'"><img loading="lazy" src="'+$sliderArray[slideCounter][2]+'"></a>');
+                                slideCounter++;
+                            });
+                            $(".bx-viewport").height($('.slider').width()/3);
+                        } else {
+                            let slideCounter = 0;
+                            $sliderArray.forEach(element => {
+                                $('.bxslider li.slide-'+slideCounter).append('<a class="mobile" href="'+$sliderArrayMobile[slideCounter][1]+'"><img loading="lazy" src="'+$sliderArrayMobile[slideCounter][2]+'"></a>');
+                                slideCounter++;
+                            })
+                            $(".bx-viewport").height($('.slider').width()/1.33);
+                        }
+                        
+                        
+                    },
+                    onSlideAfter: function (currentSlideNumber, totalSlideQty, currentSlideHtmlObject) {
+                        $('.active-slide').removeClass('active-slide');
+                        $('.bxslider > li').eq(currentSlideHtmlObject + 1).addClass('active-slide')
+                    }
+                });
+            } else {
+                $('.bxslider').bxSlider({
+                    nextText: '<div class="right_ctrl"><i class="fa fa-angle-right"></i></div>',
+                    prevText: '<div class="left_ctrl"><i class="fa fa-angle-left"></i></div>',
+                    autoControls: false,
+                    controls: false,
+                    preloadImages: 'visible',
+                    touchEnabled: true,
+                    swipeThreshold: 150,
+                    preventDefaultSwipeY: true,
+                    auto: true,
+                    pause: 4000,
+                    pager: false,
+                    onSliderLoad:function(){
+                        // $(".bxslider").removeClass("hides");
+                        $('.bxslider > li').eq(1).addClass('active-slide');
+                        
+                        if($('.slider').width() > 768) {
+                            let slideCounter = 0;
+                            $sliderArray.forEach(element => {
+                                $('.bxslider li.slide-'+slideCounter).append('<a class="web" href="'+$sliderArray[slideCounter][1]+'"><img loading="lazy" src="'+$sliderArray[slideCounter][2]+'"></a>');
+                                slideCounter++;
+                            });
+                            $(".bx-viewport").height($('.slider').width()/3);
+                        } else {
+                            let slideCounter = 0;
+                            $sliderArray.forEach(element => {
+                                $('.bxslider li.slide-'+slideCounter).append('<a class="mobile" href="'+$sliderArrayMobile[slideCounter][1]+'"><img loading="lazy" src="'+$sliderArrayMobile[slideCounter][2]+'"></a>');
+                                slideCounter++;
+                            })
+                            $(".bx-viewport").height($('.slider').width()/1.33);
+                        }
+                        
+                        
+                    },
+                    onSlideAfter: function (currentSlideNumber, totalSlideQty, currentSlideHtmlObject) {
+                        $('.active-slide').removeClass('active-slide');
+                        $('.bxslider > li').eq(currentSlideHtmlObject + 1).addClass('active-slide')
+                    }
+                });
+            }
+            
+            
+        });
+        
+    });
+    
+</script>

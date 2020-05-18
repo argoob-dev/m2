@@ -1,0 +1,1 @@
+/var/www/html/argoob/lib/web/mage/collapsible.js

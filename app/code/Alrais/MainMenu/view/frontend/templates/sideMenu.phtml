@@ -1,0 +1,15 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$navigators = $this->getMainMenu();
+?>
+
+<div class="menu-container align-right col40 dark-bg">
+    <div class="close-icon"><i class="far fa-window-close"></i></div>
+    <ul class="menu-wrapper-list">
+         <?php foreach ($navigators as $navigator): ?>
+            <li>
+                <a href="<?php echo $navigator->getLink(); ?>"><?php echo $navigator->getName(); ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

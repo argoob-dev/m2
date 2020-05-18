@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="<?= $this->getViewFileUrl('Magento_Catalog::css/xzoom.css')?>" media="all" /> 
+<link type="text/css" rel="stylesheet" media="all" href="<?= $this->getViewFileUrl('Magento_Catalog::css/jquery.fancybox.css')?>" />
+<link type="text/css" rel="stylesheet" media="all" href="<?= $this->getViewFileUrl('Magento_Catalog::css/magnific-popup.css')?>" />
+
+    <!-- magnific start -->
+    <section id="magnific">
+    <div class="row">
+      <div class="large-5 column">
+        <div class="xzoom-container">
+        <?php 
+            $product = $this->getProduct();
+            $images = $product->getMediaGalleryImages();
+            $imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+            $mainImage = "";
+            if ($images instanceof \Magento\Framework\Data\Collection) {
+              foreach ($images as $image) {
+                $product->getImage() == $image->getFile();
+                if($product->getImage() == $image->getFile()){
+                  $mainImage = $imageHelper->init($product, 'product_page_image_large_no_frame')
+                                ->resize(900, 900)
+                                ->keepFrame(true)
+                                ->setImageFile($product->getImage())
+                                ->getUrl();
+                }
+              }
+            }
+          ?>
+          <img class="xzoom5" id="xzoom-magnific" src="<?= $mainImage?>" xoriginal="<?= $mainImage?>" />
+          <div class="xzoom-thumbs">
+            <?php if ($images instanceof \Magento\Framework\Data\Collection) { ?>
+              <?php foreach ($images as $image) { ?>
+                <?php $active = ""?>
+                <?php $imageFile = $imageHelper->init($product, 'product_page_image_large_no_frame')
+                        ->resize(900, 900)
+                        ->keepFrame(true)
+                        ->setImageFile($image->getFile())
+                        ->getUrl() ?>
+                <a href="<?= $imageFile ?>">
+                  <img class="xzoom-gallery5" src="<?= $imageFile ?>">
+                </a>
+              <?php } ?>
+            <?php } ?>
+          </div>
+        </div>        
+      </div>
+      <div class="large-7 column"></div>
+    </div>
+    </section>   
+    <!-- magnific end -->
+    
+<script type="text/javascript" src="<?= $this->getViewFileUrl('Magento_Catalog::js/xzoom.min.js')?>"></script>
+<!-- <script type="text/javascript" src="<?= $this->getViewFileUrl('Magento_Catalog::js/jquery.hammer.min.js')?>"></script> -->
+<script type="text/javascript" src="<?= $this->getViewFileUrl('Magento_Catalog::js/jquery.fancybox.js')?>"></script>
+
+
+<script type="text/javascript" src="<?= $this->getViewFileUrl('Magento_Catalog::js/magnific-popup.js')?>"></script>  
+
+
+<script src="<?= $this->getViewFileUrl('Magento_Catalog::js/setup.js')?>"></script>

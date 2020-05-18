@@ -1,0 +1,1 @@
+/var/www/html/argoob/app/code/Mageplaza/GoogleRecaptcha/view/frontend/web/js/captcha.js
